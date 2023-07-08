@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import MainApp from './components/main-app-component/app';
+import RentalOffersCount from './const/const';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -9,6 +10,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <MainApp />
+    <MainApp
+      count = {RentalOffersCount.count}
+    />
   </React.StrictMode>
 );

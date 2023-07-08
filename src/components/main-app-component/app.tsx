@@ -1,8 +1,12 @@
 import MainPage from '../../pages/main-page/main-page';
 
-function MainApp(): JSX.Element {
+type MainAppProps = {
+  count : number;
+}
+
+function MainApp({count} : MainAppProps): JSX.Element {
   return (
-    <MainPage />
+    <MainPage count = {count}/>
   );
 
 }
