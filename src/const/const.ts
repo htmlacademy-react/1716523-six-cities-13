@@ -1,8 +1,13 @@
 
 
-const RentalOffersCount = {
-  count : 111,
+export const RentalOffersCount = {
+  count : 312,
 };
 
-export default RentalOffersCount;
+export enum AppRoute {
+  Root = '/',
+  Offers = '/offers',
+  Favorites = '/favorites',
+  Login = '/login',
+}
 

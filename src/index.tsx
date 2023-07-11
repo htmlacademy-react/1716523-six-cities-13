@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import MainApp from './components/main-app-component/app';
-import RentalOffersCount from './const/const';
+import {RentalOffersCount} from './const/const';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
