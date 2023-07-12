@@ -6,6 +6,7 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import NotFound from '../../pages/not-found-page/not-found-page';
 
+
 type MainAppProps = {
   count: number;
 }
