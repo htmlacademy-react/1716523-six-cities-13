@@ -16,3 +16,10 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export enum Titles {
+  MainTitle = '6 cities',
+  OffersTitle = '6 cities: offer',
+  FavoritesTitle = '6 cities: favorites',
+  LoginTitle = '6 cities: authorization'
+}

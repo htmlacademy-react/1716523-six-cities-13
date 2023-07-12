@@ -1,6 +1,8 @@
 import Logo from '../../components/logo/logo';
 import { useParams } from 'react-router-dom';
 import NavigationList from '../../components/navigation/navigation-list';
+import { Helmet } from 'react-helmet-async';
+import { Titles } from '../../const/const';
 
 function OffersPage() : JSX.Element {
 
@@ -10,6 +12,9 @@ function OffersPage() : JSX.Element {
 
   return(
     <div className="page">
+      <Helmet>
+        <title>{Titles.OffersTitle}</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

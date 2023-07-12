@@ -1,8 +1,13 @@
 import Logo from '../../components/logo/logo';
+import { Helmet } from 'react-helmet-async';
+import { Titles } from '../../const/const';
 
-function LoginPage() : JSX.Element {
-  return(
+function LoginPage(): React.JSX.Element {
+  return (
     <div className="page page--gray page--login">
+      <Helmet>
+        <title>{Titles.LoginTitle}</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
