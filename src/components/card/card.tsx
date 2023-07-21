@@ -1,17 +1,49 @@
 
 import { Link } from 'react-router-dom';
+import { Offer, RatingObj } from '../../types/types';
 
-function PlaceCard() : React.JSX.Element {
+// import { useState } from 'react';
+
+function ratingCount(rating: number):RatingObj {
+  return {
+    width: `${(Math.round(rating) * 20).toString()}%`
+  };
+}
+
+
+type PlaceCardProps ={
+  offer: Offer;
+  activeCard: string | null;
+  setActiveCard: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+function PlaceCard({offer, activeCard, setActiveCard}: PlaceCardProps) : React.JSX.Element {
+
+  const handleMouseEnter = () => {
+    setActiveCard(offer.id);
+  };
+
+  const handleMouseLeave = () => (
+    setActiveCard(null)
+  );
+
+  console.log(ratingCount(offer.rating), 'rating')
+
   return(
-    <article className="cities__card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+    <article className={`cities__card place-card ${activeCard === offer.id ? 'place-card--active' : ''}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {offer.isPremium &&
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>}
+
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to='/offers'>
+        <Link to={`/offers/:${offer.id}`}>
           <img
             className="place-card__image"
-            src="img/apartment-01.jpg"
+            src={offer.previewImage}
             width={260}
             height={200}
             alt="Place image"
@@ -21,7 +53,7 @@ function PlaceCard() : React.JSX.Element {
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">€120</b>
+            <b className="place-card__price-value">€{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button
@@ -40,13 +72,13 @@ function PlaceCard() : React.JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }} />
+            <span style={ratingCount(offer.rating)} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
           <a href="#">
-                        Beautiful &amp; luxurious apartment at great location
+            {offer.title}
           </a>
         </h2>
         <p className="place-card__type">Apartment</p>

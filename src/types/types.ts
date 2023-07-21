@@ -1,4 +1,4 @@
-type Offer =
+export type Offer =
   {
     id: string;
     title: string;
@@ -22,3 +22,7 @@ type Offer =
   }
 
 export type OffersType = Offer[];
+
+export type RatingObj = {
+  width: string;
+}

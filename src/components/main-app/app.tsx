@@ -7,20 +7,24 @@ import LoginPage from '../../pages/login-page/login-page';
 import NotFound from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
+import { OffersType } from '../../types/types';
 
 
-type MainAppProps = {
-  count: number;
-}
+type MainAppProps = OffersType;
 
-function MainApp({ count }: MainAppProps): React.JSX.Element {
+function MainApp({offers}: MainAppProps): React.JSX.Element {
+  console.log(offers, 'app')
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainPage count={count} />}
+            element={
+              <MainPage
+                offers={offers}
+              />
+            }
           />
           <Route
             path={AppRoute.Offers}
