@@ -13,7 +13,6 @@ import { OffersType } from '../../types/types';
 type MainAppProps = OffersType;
 
 function MainApp({offers}: MainAppProps): React.JSX.Element {
-  console.log(offers, 'app')
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -36,7 +35,9 @@ function MainApp({offers}: MainAppProps): React.JSX.Element {
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.Auth}
               >
-                <FavoritesPage />
+                <FavoritesPage
+                  offers={offers}
+                />
               </PrivateRoute>
             }
           />

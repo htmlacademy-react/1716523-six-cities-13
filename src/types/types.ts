@@ -6,22 +6,24 @@ export type Offer =
     price: number;
     city: {
       name: string;
-      location: locationType;
+      location: LocationType;
     };
-    location: locationType;
+    location: LocationType;
     isFavorite: boolean;
     isPremium: boolean;
     rating: number;
     previewImage: string;
   };
 
-  type locationType = {
+  type LocationType = {
       latitude: number;
       longitude: number;
       zoom: number;
   }
 
-export type OffersType = Offer[];
+export type OffersType = {
+  offers: Offer[];
+}
 
 export type RatingObj = {
   width: string;

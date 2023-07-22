@@ -1,6 +1,6 @@
-import { OffersType } from '../types/types';
+import { Offer } from '../types/types';
 
-export const offers: OffersType = [
+export const offers: Offer[] = [
   {
     'id': 'd536a658-c3f9-4e27-b860-a6682a440bd5',
     'title': 'Nice, cozy, warm big bed apartment',
@@ -20,7 +20,7 @@ export const offers: OffersType = [
       'longitude': 2.342499,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': true,
     'rating': 2.1
   },
@@ -112,7 +112,7 @@ export const offers: OffersType = [
       'longitude': 2.375499,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 2
   },
@@ -158,7 +158,7 @@ export const offers: OffersType = [
       'longitude': 2.364499,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 3.3
   },
@@ -227,7 +227,7 @@ export const offers: OffersType = [
       'longitude': 2.369499,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 3.3
   },
@@ -319,7 +319,7 @@ export const offers: OffersType = [
       'longitude': 2.333499,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 4.4
   },
@@ -330,7 +330,7 @@ export const offers: OffersType = [
     'price': 113,
     'previewImage': 'https://13.design.pages.academy/static/hotel/18.jpg',
     'city': {
-      'name': 'Paris',
+      'name': 'Amsterdam',
       'location': {
         'latitude': 48.85661,
         'longitude': 2.351499,
@@ -342,7 +342,7 @@ export const offers: OffersType = [
       'longitude': 2.342499,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': true,
     'rating': 3
   },
@@ -526,7 +526,7 @@ export const offers: OffersType = [
       'longitude': 6.943974,
       'zoom': 16
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 4.8
   },

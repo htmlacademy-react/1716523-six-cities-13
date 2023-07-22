@@ -1,15 +1,9 @@
 
 import { Link } from 'react-router-dom';
-import { Offer, RatingObj } from '../../types/types';
+import { Offer } from '../../types/types';
+import { ratingCount } from '../../utils/utils';
 
 // import { useState } from 'react';
-
-function ratingCount(rating: number):RatingObj {
-  return {
-    width: `${(Math.round(rating) * 20).toString()}%`
-  };
-}
-
 
 type PlaceCardProps ={
   offer: Offer;
@@ -19,6 +13,7 @@ type PlaceCardProps ={
 
 function PlaceCard({offer, activeCard, setActiveCard}: PlaceCardProps) : React.JSX.Element {
 
+
   const handleMouseEnter = () => {
     setActiveCard(offer.id);
   };
@@ -26,8 +21,6 @@ function PlaceCard({offer, activeCard, setActiveCard}: PlaceCardProps) : React.J
   const handleMouseLeave = () => (
     setActiveCard(null)
   );
-
-  console.log(ratingCount(offer.rating), 'rating')
 
   return(
     <article className={`cities__card place-card ${activeCard === offer.id ? 'place-card--active' : ''}`}
@@ -57,7 +50,7 @@ function PlaceCard({offer, activeCard, setActiveCard}: PlaceCardProps) : React.J
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button
-            className="place-card__bookmark-button button"
+            className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : '' } button`}
             type="button"
           >
             <svg

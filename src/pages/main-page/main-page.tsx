@@ -1,5 +1,5 @@
 
-import PlaceCard from '../../components/card/card';
+// import PlaceCard from '../../components/card/card';
 import NavigationList from '../../components/navigation/navigation-list';
 import { Helmet } from 'react-helmet-async';
 import { Titles } from '../../const/const';
@@ -10,7 +10,7 @@ import { OffersList } from '../../components/offers-list/offers-list';
 
 type MainPageProps = OffersType;
 
-function MainPage({offers}: MainPageProps): JSX.Element {
+function MainPage({offers}: MainPageProps): React.JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>

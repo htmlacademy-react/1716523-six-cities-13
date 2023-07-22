@@ -6,7 +6,7 @@ import MainApp from './components/main-app/app';
 
 import { offers } from './mock/offers';
 
-console.log(offers, 'index')
+// console.log(offers, 'index');
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,7 +15,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <MainApp
-      offers = {offers}
+      offers={offers}
     />
   </React.StrictMode>
 );
