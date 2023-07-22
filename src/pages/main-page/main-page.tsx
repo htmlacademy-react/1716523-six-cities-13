@@ -1,12 +1,9 @@
 
-// import PlaceCard from '../../components/card/card';
 import NavigationList from '../../components/navigation/navigation-list';
 import { Helmet } from 'react-helmet-async';
 import { Titles } from '../../const/const';
 import { OffersType } from '../../types/types';
-
 import { OffersList } from '../../components/offers-list/offers-list';
-
 
 type MainPageProps = OffersType;
 

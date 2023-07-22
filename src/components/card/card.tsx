@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { Offer } from '../../types/types';
 import { ratingCount } from '../../utils/utils';
 
-// import { useState } from 'react';
-
 type PlaceCardProps ={
   offer: Offer;
   activeCard: string | null;
