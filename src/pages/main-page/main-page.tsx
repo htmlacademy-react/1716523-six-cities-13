@@ -1,5 +1,8 @@
 
-import PlaceCard from '../../components/card-component/card';
+import PlaceCard from '../../components/card/card';
+import NavigationList from '../../components/navigation/navigation-list';
+import { Helmet } from 'react-helmet-async';
+import { Titles } from '../../const/const';
 
 type MainPageProps = {
  count : number;
@@ -8,6 +11,9 @@ type MainPageProps = {
 function MainPage({count} : MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>{Titles.MainTitle}</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -23,25 +29,7 @@ function MainPage({count} : MainPageProps): JSX.Element {
               </a>
             </div>
             <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a
-                    className="header__nav-link header__nav-link--profile"
-                    href="#"
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">
-                      Oliver.conner@gmail.com
-                    </span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
+              <NavigationList />
             </nav>
           </div>
         </div>
