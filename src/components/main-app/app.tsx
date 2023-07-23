@@ -1,5 +1,5 @@
 import MainPage from '../../pages/main-page/main-page';
-import OffersPage from '../../pages/offers-page/offers-page';
+import OffersPage from '../../pages/offer-page/offer-page';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const/const';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
