@@ -2,7 +2,7 @@ export type Offer =
   {
     id: string;
     title: string;
-    type: string;
+    type: OfferHouseType;
     price: number;
     city: {
       name: string;
@@ -28,3 +28,5 @@ export type OffersType = {
 export type RatingObj = {
   width: string;
 }
+
+export type OfferHouseType = 'room' | 'apartment' | 'house' | 'hotel';

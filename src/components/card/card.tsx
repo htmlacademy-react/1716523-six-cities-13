@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/types';
 import { ratingCount } from '../../utils/utils';
+import { HOUSE_TYPE } from '../../const/const';
 
 type PlaceCardProps ={
   offer: Offer;
@@ -10,7 +11,6 @@ type PlaceCardProps ={
 }
 
 function PlaceCard({offer, activeCard, setActiveCard}: PlaceCardProps) : React.JSX.Element {
-
 
   const handleMouseEnter = () => {
     setActiveCard(offer.id);
@@ -72,7 +72,7 @@ function PlaceCard({offer, activeCard, setActiveCard}: PlaceCardProps) : React.J
             {offer.title}
           </a>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{HOUSE_TYPE[offer.type]}</p>
       </div>
     </article>
   );
