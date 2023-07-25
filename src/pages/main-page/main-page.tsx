@@ -1,14 +1,13 @@
 
-import PlaceCard from '../../components/card/card';
 import NavigationList from '../../components/navigation/navigation-list';
 import { Helmet } from 'react-helmet-async';
 import { Titles } from '../../const/const';
+import { OffersType } from '../../types/types';
+import { OffersList } from '../../components/offers-list/offers-list';
 
-type MainPageProps = {
- count : number;
-}
+type MainPageProps = OffersType;
 
-function MainPage({count} : MainPageProps): JSX.Element {
+function MainPage({offers}: MainPageProps): React.JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -76,7 +75,7 @@ function MainPage({count} : MainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{count} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -103,13 +102,7 @@ function MainPage({count} : MainPageProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                < PlaceCard />
-                < PlaceCard />
-                < PlaceCard />
-                < PlaceCard />
-                < PlaceCard />
-              </div>
+              <OffersList offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" />

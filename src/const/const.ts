@@ -1,5 +1,3 @@
-
-
 export const RentalOffersCount = {
   count : 312,
 };
@@ -23,3 +21,10 @@ export enum Titles {
   FavoritesTitle = '6 cities: favorites',
   LoginTitle = '6 cities: authorization'
 }
+
+export const HOUSE_TYPE = {
+  room: 'Privare Room',
+  apartment: 'Apartment',
+  house: 'House',
+  hotel: 'Hotel',
+};
