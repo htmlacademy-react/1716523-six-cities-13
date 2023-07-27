@@ -4,10 +4,16 @@ import { Helmet } from 'react-helmet-async';
 import { Titles } from '../../const/const';
 import { OffersType } from '../../types/types';
 import { OffersList } from '../../components/offers-list/offers-list';
+import Map from '../../components/map/map';
 
 type MainPageProps = OffersType;
 
 function MainPage({offers}: MainPageProps): React.JSX.Element {
+
+  // const [selectedCard, setSelectedCard] = useState({});
+
+  // const handleListItemHover = (listItemName) => {};
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -102,10 +108,15 @@ function MainPage({offers}: MainPageProps): React.JSX.Element {
                   </li>
                 </ul>
               </form>
-              <OffersList offers={offers}/>
+              <OffersList
+                offers={offers}
+                // onListItemHover={handleListItemHover}
+              />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <section className="cities__map map">
+                <Map offers={offers}/>
+              </section>
             </div>
           </div>
         </div>

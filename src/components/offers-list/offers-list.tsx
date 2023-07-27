@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 type OfferListProps = OffersType;
 
-export function OffersList({offers}: OfferListProps): React.JSX.Element {
+export function OffersList({offers, onListItemHover}: OfferListProps): React.JSX.Element {
 
   const [activeCard, setActiveCard] = useState<string | null>(null);
 
