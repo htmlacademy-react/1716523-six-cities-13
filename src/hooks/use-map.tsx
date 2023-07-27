@@ -1,20 +1,21 @@
-import {useEffect, useState, useRef} from 'react';
-import leaflet from 'leaflet';
+import {useEffect, useState, useRef, MutableRefObject} from 'react';
+import leaflet, { Map } from 'leaflet';
 
-import { CITY } from '../mock/offers';
+// import { CITY } from '../mock/offers';
+import { City } from '../types';
 
-function useMap(mapRef) {
-  const [map, setMap] = useState(null);
+function useMap(mapRef: MutableRefObject<HTMLDivElement | null>, city: City): Map | null {
+  const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef(false);
 
   useEffect(() => {
     if (mapRef.current !== null && !isRenderedRef.current) {
       const instance = leaflet.map(mapRef.current, {
         center: {
-          lat: CITY.lat,
-          lng: CITY.lng,
+          lat: city.location.latitude,
+          lng: city.location.longitude,
         },
-        zoom: CITY.zoom,
+        zoom: city.location.zoom,
       });
       leaflet
         .tileLayer(
@@ -28,7 +29,7 @@ function useMap(mapRef) {
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef]);
+  }, [mapRef, city]);
 
   return map;
 }

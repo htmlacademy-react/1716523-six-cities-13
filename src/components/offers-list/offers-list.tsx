@@ -1,14 +1,17 @@
 
-import { OffersType } from '../../types';
+import { Offer } from '../../types';
 import PlaceCard from '../card/card';
 
-import { useState } from 'react';
+// type OfferListProps = OffersType;
 
-type OfferListProps = OffersType;
+type OfferListProps = {
+  offers: Offer[];
+  activeCard: string | null;
+  setActiveCard: React.Dispatch<React.SetStateAction<string | null>>;
 
-export function OffersList({offers, onListItemHover}: OfferListProps): React.JSX.Element {
+}
 
-  const [activeCard, setActiveCard] = useState<string | null>(null);
+export function OffersList({offers, activeCard, setActiveCard}: OfferListProps): React.JSX.Element {
 
   const cities = new Set<string>();
 

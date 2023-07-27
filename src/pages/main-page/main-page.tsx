@@ -5,10 +5,13 @@ import { Titles } from '../../const/const';
 import { OffersType } from '../../types/types';
 import { OffersList } from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
+import { useState } from 'react';
 
 type MainPageProps = OffersType;
 
 function MainPage({offers}: MainPageProps): React.JSX.Element {
+
+  const [activeCard, setActiveCard] = useState<string | null>(null);
 
   // const [selectedCard, setSelectedCard] = useState({});
 
@@ -110,12 +113,18 @@ function MainPage({offers}: MainPageProps): React.JSX.Element {
               </form>
               <OffersList
                 offers={offers}
+                activeCard={activeCard}
+                setActiveCard={setActiveCard}
                 // onListItemHover={handleListItemHover}
               />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers}/>
+                <Map
+                  offers={offers}
+                  city={offers[0].city}
+                  activeCard={activeCard}
+                />
               </section>
             </div>
           </div>
