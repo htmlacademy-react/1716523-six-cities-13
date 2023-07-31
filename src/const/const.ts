@@ -32,3 +32,8 @@ export const HOUSE_TYPE = {
 export const URL_MARKER_DEFAULT = 'markup/img/pin.svg';
 
 export const URL_MARKER_CURRENT = 'markup/img/pin-active.svg';
+
+export const CARD_CLASS = {
+  main: 'cities',
+  nearBy: 'near-places',
+};
