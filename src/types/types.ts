@@ -4,16 +4,18 @@ export type Offer =
     title: string;
     type: OfferHouseType;
     price: number;
-    city: {
-      name: string;
-      location: LocationType;
-    };
+    city: City;
     location: LocationType;
     isFavorite: boolean;
     isPremium: boolean;
     rating: number;
     previewImage: string;
   };
+
+export type City = {
+    name: string;
+    location: LocationType;
+  }
 
   type LocationType = {
       latitude: number;
