@@ -37,3 +37,8 @@ export const CARD_CLASS = {
   main: 'cities',
   nearBy: 'near-places',
 };
+
+export const OFFERS_LIST_CLASS = {
+  mainPage: 'cities__places-list',
+  offerPage: 'near-places__list',
+};

@@ -1,7 +1,7 @@
 import MainPage from '../../pages/main-page/main-page';
 import OffersPage from '../../pages/offer-page/offer-page';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, CARD_CLASS } from '../../const/const';
+import { AppRoute, AuthorizationStatus, CARD_CLASS, OFFERS_LIST_CLASS } from '../../const/const';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import NotFound from '../../pages/not-found-page/not-found-page';
@@ -27,12 +27,21 @@ function MainApp({offers, detailedOffers, reviews}: MainAppProps): React.JSX.Ele
               <MainPage
                 offers={offers}
                 cardClass={CARD_CLASS.main}
+                offerListClass={OFFERS_LIST_CLASS.mainPage}
               />
             }
           />
           <Route
             path={AppRoute.Offers}
-            element={<OffersPage detailedOffers={detailedOffers} reviews={reviews} offers={offers} cardClass={CARD_CLASS.nearBy}/>}
+            element={
+              <OffersPage
+                detailedOffers={detailedOffers}
+                reviews={reviews}
+                offers={offers}
+                cardClass={CARD_CLASS.nearBy}
+                offerListClass={OFFERS_LIST_CLASS.offerPage}
+              />
+            }
           />
           <Route
             path={AppRoute.Favorites}

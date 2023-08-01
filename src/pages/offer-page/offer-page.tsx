@@ -17,9 +17,10 @@ type OffersPageProps = {
   reviews: Review[];
   offers: Offer[];
   cardClass: string;
+  offerListClass: string;
 }
 
-function OffersPage({detailedOffers, reviews, offers, cardClass}: OffersPageProps) : JSX.Element {
+function OffersPage({detailedOffers, reviews, offers, cardClass, offerListClass}: OffersPageProps) : JSX.Element {
 
   const [activeCard, setActiveCard] = useState<string | null>(null);
 
@@ -51,9 +52,7 @@ function OffersPage({detailedOffers, reviews, offers, cardClass}: OffersPageProp
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              <div className="offer__mark">
-                <span>Premium</span>
-              </div>
+              {detailedOffer?.isPremium ? <div className="offer__mark"><span>Premium</span></div> : ''}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
               Beautiful &amp; luxurious studio at great location
@@ -70,34 +69,26 @@ function OffersPage({detailedOffers, reviews, offers, cardClass}: OffersPageProp
                   <span style={{ width: '80%' }} />
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">4.8</span>
+                <span className="offer__rating-value rating__value">{detailedOffer?.rating}</span>
               </div>
               <ul className="offer__features">
-                <li className="offer__feature offer__feature--entire">Apartment</li>
+                <li className="offer__feature offer__feature--entire">{detailedOffer?.type}</li>
                 <li className="offer__feature offer__feature--bedrooms">
-              3 Bedrooms
+                  {detailedOffer?.bedrooms} Bedrooms
                 </li>
                 <li className="offer__feature offer__feature--adults">
-              Max 4 adults
+              Max {detailedOffer?.maxAdults} adults
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">€120</b>
+                <b className="offer__price-value">{detailedOffer?.price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  <li className="offer__inside-item">Wi-Fi</li>
-                  <li className="offer__inside-item">Washing machine</li>
-                  <li className="offer__inside-item">Towels</li>
-                  <li className="offer__inside-item">Heating</li>
-                  <li className="offer__inside-item">Coffee machine</li>
-                  <li className="offer__inside-item">Baby seat</li>
-                  <li className="offer__inside-item">Kitchen</li>
-                  <li className="offer__inside-item">Dishwasher</li>
-                  <li className="offer__inside-item">Cabel TV</li>
-                  <li className="offer__inside-item">Fridge</li>
+                  {detailedOffer?.goods.map((good) =>
+                    <li key={good} className="offer__inside-item">{good}</li>)}
                 </ul>
               </div>
               <div className="offer__host">
@@ -106,14 +97,14 @@ function OffersPage({detailedOffers, reviews, offers, cardClass}: OffersPageProp
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="offer__avatar user__avatar"
-                      src="img/avatar-angelina.jpg"
+                      src={detailedOffer?.host.avatarUrl}
                       width={74}
                       height={74}
                       alt="Host avatar"
                     />
                   </div>
-                  <span className="offer__user-name">Angelina</span>
-                  <span className="offer__user-status">Pro</span>
+                  <span className="offer__user-name">{detailedOffer?.host.name}</span>
+                  <span className="offer__user-status">{detailedOffer?.host.isPro ? 'Pro' : ''}</span>
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">
@@ -139,7 +130,7 @@ function OffersPage({detailedOffers, reviews, offers, cardClass}: OffersPageProp
           </div>
           <section className="offer__map map">
             <Map
-              offers={offers}
+              offers={offers.slice(0, 3)}
               city={offers[0].city}
               activeCard={activeCard}
             />
@@ -151,10 +142,11 @@ function OffersPage({detailedOffers, reviews, offers, cardClass}: OffersPageProp
           Other places in the neighbourhood
             </h2>
             <OffersList
-              offers={offers}
+              offers={offers.slice(0, 3)}
               activeCard={activeCard}
               setActiveCard={setActiveCard}
               cardClass={cardClass}
+              offerListClass={offerListClass}
             />
           </section>
         </div>

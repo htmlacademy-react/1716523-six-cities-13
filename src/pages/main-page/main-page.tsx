@@ -10,9 +10,10 @@ import { useState } from 'react';
 type MainPageProps = {
   offers: Offer[];
   cardClass: string;
+  offerListClass: string;
 };
 
-function MainPage({offers, cardClass}: MainPageProps): React.JSX.Element {
+function MainPage({offers, cardClass, offerListClass}: MainPageProps): React.JSX.Element {
 
   const [activeCard, setActiveCard] = useState<string | null>(null);
 
@@ -119,6 +120,7 @@ function MainPage({offers, cardClass}: MainPageProps): React.JSX.Element {
                 activeCard={activeCard}
                 setActiveCard={setActiveCard}
                 cardClass={cardClass}
+                offerListClass={offerListClass}
               />
             </section>
             <div className="cities__right-section">
