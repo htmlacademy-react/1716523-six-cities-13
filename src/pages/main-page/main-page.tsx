@@ -2,14 +2,18 @@
 import NavigationList from '../../components/navigation/navigation-list';
 import { Helmet } from 'react-helmet-async';
 import { Titles } from '../../const/const';
-import { OffersType } from '../../types/types';
+import { Offer } from '../../types/types';
 import { OffersList } from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
 import { useState } from 'react';
 
-type MainPageProps = OffersType;
+type MainPageProps = {
+  offers: Offer[];
+  cardClass: string;
+  offerListClass: string;
+};
 
-function MainPage({offers}: MainPageProps): React.JSX.Element {
+function MainPage({offers, cardClass, offerListClass}: MainPageProps): React.JSX.Element {
 
   const [activeCard, setActiveCard] = useState<string | null>(null);
 
@@ -115,7 +119,8 @@ function MainPage({offers}: MainPageProps): React.JSX.Element {
                 offers={offers}
                 activeCard={activeCard}
                 setActiveCard={setActiveCard}
-                // onListItemHover={handleListItemHover}
+                cardClass={cardClass}
+                offerListClass={offerListClass}
               />
             </section>
             <div className="cities__right-section">

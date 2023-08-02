@@ -8,9 +8,10 @@ type PlaceCardProps ={
   offer: Offer;
   activeCard: string | null;
   setActiveCard: React.Dispatch<React.SetStateAction<string | null>>;
+  cardClass: string;
 }
 
-function PlaceCard({offer, activeCard, setActiveCard}: PlaceCardProps) : React.JSX.Element {
+function PlaceCard({offer, activeCard, setActiveCard, cardClass}: PlaceCardProps) : React.JSX.Element {
 
   const handleMouseEnter = () => {
     setActiveCard(offer.id);
@@ -21,7 +22,7 @@ function PlaceCard({offer, activeCard, setActiveCard}: PlaceCardProps) : React.J
   );
 
   return(
-    <article className={`cities__card place-card ${activeCard === offer.id ? 'place-card--active' : ''}`}
+    <article className={`${cardClass}__card place-card ${activeCard === offer.id ? 'place-card--active' : ''}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -30,8 +31,8 @@ function PlaceCard({offer, activeCard, setActiveCard}: PlaceCardProps) : React.J
           <span>Premium</span>
         </div>}
 
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`/offers/:${offer.id}`}>
+      <div className={`${cardClass}__image-wrapper place-card__image-wrapper`}>
+        <Link to={`/offers/${offer.id}`}>
           <img
             className="place-card__image"
             src={offer.previewImage}
