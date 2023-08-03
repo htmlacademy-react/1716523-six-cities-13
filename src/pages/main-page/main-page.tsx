@@ -6,6 +6,8 @@ import { Offer } from '../../types/types';
 import { OffersList } from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { changeCity } from '../../store/action';
 
 type MainPageProps = {
   offers: Offer[];
@@ -16,6 +18,10 @@ type MainPageProps = {
 function MainPage({offers, cardClass, offerListClass}: MainPageProps): React.JSX.Element {
 
   const [activeCard, setActiveCard] = useState<string | null>(null);
+
+  const useChangeCityDispatch = (payload) => useDispatch(payload);
+
+  const dispatch = useChangeCityDispatch;
 
   // const [selectedCard, setSelectedCard] = useState({});
 
@@ -51,7 +57,8 @@ function MainPage({offers, cardClass, offerListClass}: MainPageProps): React.JSX
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <li className="locations__item">
+              <li className="locations__item"
+              onClick={() => dispatch(changeCity('paris'))}>
                 <a className="locations__item-link tabs__item" href="#">
                   <span>Paris</span>
                 </a>
