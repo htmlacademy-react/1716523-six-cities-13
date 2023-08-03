@@ -8,6 +8,7 @@ import Map from '../../components/map/map';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { changeCity } from '../../store/action';
+import { CitiesNav } from '../../components/cities-nav/cities-nav';
 
 type MainPageProps = {
   offers: Offer[];
@@ -56,9 +57,9 @@ function MainPage({offers, cardClass, offerListClass}: MainPageProps): React.JSX
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item"
-              onClick={() => dispatch(changeCity('paris'))}>
+            <CitiesNav />
+            {/* <ul className="locations__list tabs__list">
+              <li className="locations__item">
                 <a className="locations__item-link tabs__item" href="#">
                   <span>Paris</span>
                 </a>
@@ -88,7 +89,7 @@ function MainPage({offers, cardClass, offerListClass}: MainPageProps): React.JSX
                   <span>Dusseldorf</span>
                 </a>
               </li>
-            </ul>
+            </ul> */}
           </section>
         </div>
         <div className="cities">

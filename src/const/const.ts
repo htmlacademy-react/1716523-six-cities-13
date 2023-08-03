@@ -42,3 +42,5 @@ export const OFFERS_LIST_CLASS = {
   mainPage: 'cities__places-list',
   offerPage: 'near-places__list',
 };
+
+export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
