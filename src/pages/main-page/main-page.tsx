@@ -2,31 +2,29 @@
 import NavigationList from '../../components/navigation/navigation-list';
 import { Helmet } from 'react-helmet-async';
 import { Titles } from '../../const/const';
-import { Offer } from '../../types/types';
+// import { Offer } from '../../types/types';
 import { OffersList } from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { changeCity } from '../../store/action';
+// import { useDispatch } from 'react-redux';
 import { CitiesNav } from '../../components/cities-nav/cities-nav';
+import { useAppSelector } from '../../hooks/use-app-dispatch';
 
 type MainPageProps = {
-  offers: Offer[];
   cardClass: string;
   offerListClass: string;
 };
 
-function MainPage({offers, cardClass, offerListClass}: MainPageProps): React.JSX.Element {
+function MainPage({ cardClass, offerListClass}: MainPageProps): React.JSX.Element {
 
   const [activeCard, setActiveCard] = useState<string | null>(null);
 
-  const useChangeCityDispatch = (payload) => useDispatch(payload);
+  // const dispatch = useAppDispatch();
 
-  const dispatch = useChangeCityDispatch;
+  const currentCity = useAppSelector((state) => state.city);
 
-  // const [selectedCard, setSelectedCard] = useState({});
+  const availableOffers = useAppSelector((state) => state.offers);
 
-  // const handleListItemHover = (listItemName) => {};
 
   return (
     <div className="page page--gray page--main">
@@ -58,45 +56,13 @@ function MainPage({offers, cardClass, offerListClass}: MainPageProps): React.JSX
         <div className="tabs">
           <section className="locations container">
             <CitiesNav />
-            {/* <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul> */}
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+              <b className="places__found">{availableOffers.length} places to stay in {currentCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -124,7 +90,7 @@ function MainPage({offers, cardClass, offerListClass}: MainPageProps): React.JSX
                 </ul>
               </form>
               <OffersList
-                offers={offers}
+                offers={availableOffers}
                 activeCard={activeCard}
                 setActiveCard={setActiveCard}
                 cardClass={cardClass}
@@ -134,8 +100,8 @@ function MainPage({offers, cardClass, offerListClass}: MainPageProps): React.JSX
             <div className="cities__right-section">
               <section className="cities__map map">
                 <Map
-                  offers={offers}
-                  city={offers[0].city}
+                  offers={availableOffers}
+                  city={availableOffers[0].city}
                   activeCard={activeCard}
                 />
               </section>

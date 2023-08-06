@@ -1,47 +1,27 @@
+import { Link } from 'react-router-dom';
 import { CITIES } from '../../const/const';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
+import { changeCity } from '../../store/action';
 
 export function CitiesNav(): React.JSX.Element {
+
+  const dispatch = useAppDispatch();
+
+  const currentCity = useAppSelector((state) => state.city);
+
   return (
     <ul className="locations__list tabs__list">
 
       {CITIES.map((city) =>
         (
-          <li key={city} className="locations__item">
-            <a className="locations__item-link tabs__item" href="#">
+          <li key={city} className="locations__item"
+            onClick={() => dispatch(changeCity(city))}
+          >
+            <Link to="/" className={`locations__item-link tabs__item ${currentCity === city ? 'tabs__item--active' : ''}`} >
               <span>{city}</span>
-            </a>
+            </Link>
           </li>
         ))}
-      {/* <li className="locations__item">
-        <a className="locations__item-link tabs__item" href="#">
-          <span>Paris</span>
-        </a>
-      </li>
-      <li className="locations__item">
-        <a className="locations__item-link tabs__item" href="#">
-          <span>Cologne</span>
-        </a>
-      </li>
-      <li className="locations__item">
-        <a className="locations__item-link tabs__item" href="#">
-          <span>Brussels</span>
-        </a>
-      </li>
-      <li className="locations__item">
-        <a className="locations__item-link tabs__item tabs__item--active">
-          <span>Amsterdam</span>
-        </a>
-      </li>
-      <li className="locations__item">
-        <a className="locations__item-link tabs__item" href="#">
-          <span>Hamburg</span>
-        </a>
-      </li>
-      <li className="locations__item">
-        <a className="locations__item-link tabs__item" href="#">
-          <span>Dusseldorf</span>
-        </a>
-      </li> */}
     </ul>
   );
 }
