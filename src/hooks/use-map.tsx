@@ -8,6 +8,7 @@ function useMap(mapRef: MutableRefObject<HTMLDivElement | null>, city: City): Ma
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef(false);
 
+
   useEffect(() => {
     if (mapRef.current !== null && !isRenderedRef.current) {
       const instance = leaflet.map(mapRef.current, {

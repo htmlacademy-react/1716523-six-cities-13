@@ -2,24 +2,30 @@
 import NavigationList from '../../components/navigation/navigation-list';
 import { Helmet } from 'react-helmet-async';
 import { Titles } from '../../const/const';
-import { Offer } from '../../types/types';
 import { OffersList } from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
 import { useState } from 'react';
+import { CitiesNav } from '../../components/cities-nav/cities-nav';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
+import { sortOffers } from '../../store/action';
 
 type MainPageProps = {
-  offers: Offer[];
   cardClass: string;
   offerListClass: string;
 };
 
-function MainPage({offers, cardClass, offerListClass}: MainPageProps): React.JSX.Element {
+function MainPage({ cardClass, offerListClass}: MainPageProps): React.JSX.Element {
 
   const [activeCard, setActiveCard] = useState<string | null>(null);
 
-  // const [selectedCard, setSelectedCard] = useState({});
+  const dispatch = useAppDispatch();
 
-  // const handleListItemHover = (listItemName) => {};
+  const currentCity = useAppSelector((state) => state.city);
+
+  const availableOffers = useAppSelector((state) => state.offers);
+
+  const currentSortType = useAppSelector((state) => state.sortType);
+
 
   return (
     <div className="page page--gray page--main">
@@ -50,45 +56,14 @@ function MainPage({offers, cardClass, offerListClass}: MainPageProps): React.JSX
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <CitiesNav />
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+              <b className="places__found">{availableOffers.length} places to stay in {currentCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -99,24 +74,34 @@ function MainPage({offers, cardClass, offerListClass}: MainPageProps): React.JSX
                 </span>
                 <ul className="places__options places__options--custom places__options--opened">
                   <li
-                    className="places__option places__option--active"
+                    className={`places__option ${currentSortType === 'Popular' ? 'places__option--active' : ''}`}
                     tabIndex={0}
+                    onClick={() => dispatch(sortOffers('Popular'))}
                   >
                     Popular
                   </li>
-                  <li className="places__option" tabIndex={0}>
+                  <li className={`places__option ${currentSortType === 'Price: low to high' ? 'places__option--active' : ''}`}
+                    tabIndex={0}
+                    onClick={() => dispatch(sortOffers('Price: low to high'))}
+                  >
                     Price: low to high
                   </li>
-                  <li className="places__option" tabIndex={0}>
+                  <li className={`places__option ${currentSortType === 'Price: high to low' ? 'places__option--active' : ''}`}
+                    tabIndex={0}
+                    onClick={() => dispatch(sortOffers('Price: high to low'))}
+                  >
                     Price: high to low
                   </li>
-                  <li className="places__option" tabIndex={0}>
+                  <li className={`places__option ${currentSortType === 'Top rated first' ? 'places__option--active' : ''}`}
+                    tabIndex={0}
+                    onClick={() => dispatch(sortOffers('Top rated first'))}
+                  >
                     Top rated first
                   </li>
                 </ul>
               </form>
               <OffersList
-                offers={offers}
+                offers={availableOffers}
                 activeCard={activeCard}
                 setActiveCard={setActiveCard}
                 cardClass={cardClass}
@@ -126,8 +111,8 @@ function MainPage({offers, cardClass, offerListClass}: MainPageProps): React.JSX
             <div className="cities__right-section">
               <section className="cities__map map">
                 <Map
-                  offers={offers}
-                  city={offers[0].city}
+                  offers={availableOffers}
+                  city={availableOffers[0].city}
                   activeCard={activeCard}
                 />
               </section>

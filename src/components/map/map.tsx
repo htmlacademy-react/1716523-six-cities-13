@@ -12,7 +12,6 @@ type MapProps = {
 };
 
 function Map({offers, city, activeCard}: MapProps): React.JSX.Element {
-  // const {city, point, selectedPoint} = props;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -31,6 +30,7 @@ function Map({offers, city, activeCard}: MapProps): React.JSX.Element {
 
   useEffect(() => {
     if (map) {
+      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
       offers.forEach((point) => {
         new Marker({
           lat: point.location.latitude,
