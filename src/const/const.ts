@@ -43,4 +43,13 @@ export const OFFERS_LIST_CLASS = {
   offerPage: 'near-places__list',
 };
 
+// export const SORT = {
+//   popular: 'Popular',
+//   priceHighToLow: 'Price: high to low',
+//   priceLowToHigh: 'Price: low to high',
+//   rating: 'Top rated first',
+// };
+
+export const SORT: string[] = ['Popular', 'Price: high to low', 'Price: low to high', 'Top rated first'];
+
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
