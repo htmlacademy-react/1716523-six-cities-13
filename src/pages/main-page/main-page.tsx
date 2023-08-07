@@ -6,8 +6,9 @@ import { OffersList } from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
 import { useState } from 'react';
 import { CitiesNav } from '../../components/cities-nav/cities-nav';
-import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
-import { sortOffers } from '../../store/action';
+import { useAppSelector } from '../../hooks/use-app-dispatch';
+// import { sortOffers } from '../../store/action';
+import { SortForm } from '../../components/sort/sort-form';
 
 type MainPageProps = {
   cardClass: string;
@@ -18,13 +19,13 @@ function MainPage({ cardClass, offerListClass}: MainPageProps): React.JSX.Elemen
 
   const [activeCard, setActiveCard] = useState<string | null>(null);
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const currentCity = useAppSelector((state) => state.city);
 
   const availableOffers = useAppSelector((state) => state.offers);
 
-  const currentSortType = useAppSelector((state) => state.sortType);
+  // const currentSortType = useAppSelector((state) => state.sortType);
 
 
   return (
@@ -64,7 +65,8 @@ function MainPage({ cardClass, offerListClass}: MainPageProps): React.JSX.Elemen
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{availableOffers.length} places to stay in {currentCity}</b>
-              <form className="places__sorting" action="#" method="get">
+              <SortForm />
+              {/* <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
                   Popular
@@ -99,7 +101,7 @@ function MainPage({ cardClass, offerListClass}: MainPageProps): React.JSX.Elemen
                     Top rated first
                   </li>
                 </ul>
-              </form>
+              </form> */}
               <OffersList
                 offers={availableOffers}
                 activeCard={activeCard}
