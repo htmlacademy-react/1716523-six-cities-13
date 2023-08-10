@@ -13,3 +13,7 @@ export const loadOffers = createAction<Offer[]>('LOAD_OFFERS');
 
 export const requireAuthorization = createAction('REQUIRE_AUTHORIZATION');
 
+export const setError = createAction<string | null>('SET_ERROR');
+
+export const setOffersDataLoadingStatus = createAction<boolean>('SET_OFFERS_DATA_LOADING');
+

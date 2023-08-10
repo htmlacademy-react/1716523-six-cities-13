@@ -10,6 +10,7 @@ import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
 import { OffersList } from '../../components/offers-list/offers-list';
 import { useState } from 'react';
+// import { useAppSelector } from '../../hooks/use-app-dispatch';
 
 
 type OffersPageProps = {
@@ -20,13 +21,15 @@ type OffersPageProps = {
   offerListClass: string;
 }
 
-function OffersPage({detailedOffers, reviews, offers, cardClass, offerListClass}: OffersPageProps) : JSX.Element {
+function OffersPage({offers, detailedOffers, reviews, cardClass, offerListClass}: OffersPageProps) : JSX.Element {
 
   const [activeCard, setActiveCard] = useState<string | null>(null);
 
   const params = useParams();
 
   const detailedOffer = detailedOffers.find((offer) => offer.id === params.id);
+
+  // const offers = useAppSelector((state) => state.offers);
 
   return(
     <div className="page">

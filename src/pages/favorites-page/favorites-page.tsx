@@ -2,10 +2,12 @@ import Logo from '../../components/logo/logo';
 import NavigationList from '../../components/navigation/navigation-list';
 import { Helmet } from 'react-helmet-async';
 import { Titles } from '../../const/const';
-import { OffersType } from '../../types';
 import FavoritesList from '../../components/favorites-list/favorites-list';
+import { useAppSelector } from '../../hooks/use-app-dispatch';
 
-function FavoritesPage({offers}: OffersType) : React.JSX.Element {
+function FavoritesPage() : React.JSX.Element {
+
+  const offers = useAppSelector((state) => state.offers);
   return(
     <div className="page">
       <Helmet>

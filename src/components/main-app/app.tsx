@@ -7,17 +7,28 @@ import LoginPage from '../../pages/login-page/login-page';
 import NotFound from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
-import { DetailedOffer, Offer, Review } from '../../types/types';
+import { DetailedOffer, Review } from '../../types/types';
+import { useAppSelector } from '../../hooks/use-app-dispatch';
+import LoadingScreen from '../../pages/loading/loading';
 
 
 type MainAppProps = {
-  offers: Offer[];
   detailedOffers: DetailedOffer[];
   reviews: Review[];
 };
 
-function MainApp({offers, detailedOffers, reviews}: MainAppProps): React.JSX.Element {
+function MainApp({ detailedOffers, reviews}: MainAppProps): React.JSX.Element {
+
+  const offers = useAppSelector((state) => state.offers);
+  const isOffersDataLoading = useAppSelector((state) => state.loadingStatus);
+
+  if (isOffersDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
   return (
+
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
@@ -49,9 +60,7 @@ function MainApp({offers, detailedOffers, reviews}: MainAppProps): React.JSX.Ele
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.Auth}
               >
-                <FavoritesPage
-                  offers={offers}
-                />
+                <FavoritesPage />
               </PrivateRoute>
             }
           />

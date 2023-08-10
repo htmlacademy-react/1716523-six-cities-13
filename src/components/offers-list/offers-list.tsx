@@ -2,7 +2,6 @@
 import { Offer } from '../../types';
 import PlaceCard from '../card/card';
 
-// type OfferListProps = OffersType;
 
 type OfferListProps = {
   offers: Offer[];
