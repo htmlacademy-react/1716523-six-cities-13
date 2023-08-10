@@ -10,3 +10,6 @@ export const sortOffers = createAction('SORT_OFFERS', (sortType: string) => ({
 }));
 
 export const loadOffers = createAction<Offer[]>('LOAD_OFFERS');
+
+export const requireAuthorization = createAction('REQUIRE_AUTHORIZATION');
+
