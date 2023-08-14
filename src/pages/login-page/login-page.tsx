@@ -1,8 +1,8 @@
 import Logo from '../../components/logo/logo';
 import { Helmet } from 'react-helmet-async';
-import { AppRoute, Titles } from '../../const/const';
+import { Titles } from '../../const/const';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FormEvent, useRef } from 'react';
 import { loginAction } from '../../store/api-action';
 
@@ -12,7 +12,6 @@ function LoginPage(): React.JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const currentCity = useAppSelector((state) => state.city);
 
@@ -76,7 +75,6 @@ function LoginPage(): React.JSX.Element {
               <button
                 className="login__submit form__submit button"
                 type="submit"
-                onClick={() => navigate(AppRoute.Root)}
               >
             Sign in
               </button>

@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
 import { logoutAction } from '../../store/api-action';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
 
 function NavigationList(): React.JSX.Element {
+
+  const dispatch = useAppDispatch();
+
   return (
     <ul className="header__nav-list">
       <li className="header__nav-item user">
@@ -21,7 +25,7 @@ function NavigationList(): React.JSX.Element {
           className="header__nav-link"
           onClick={(evt) => {
             evt.preventDefault();
-            dispatchEvent(logoutAction());
+            dispatch(logoutAction());
           }}
           to="/"
         >

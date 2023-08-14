@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Offer } from '../types';
+import { Offer, UserData } from '../types';
 import { AppRoute, AuthorizationStatus } from '../const/const';
 
 export const changeCity = createAction('CHANGE_CITY', (value: string) => ({
@@ -23,4 +23,6 @@ export const login = createAction<void>('LOGIN');
 export const logout = createAction<void>('LOGOUT');
 
 export const redirectToRoute = createAction<AppRoute>('REDIRECT_TO_ROUTE');
+
+export const setUserData = createAction<UserData | null>('SET_USER_DATA');
 
