@@ -59,3 +59,5 @@ export enum ApiRoute {
   Login = '/six-cities/login',
   Logout = '/six-cities/logout',
 }
+
+export const TIMEOUT_SHOW_ERROR = 2000;

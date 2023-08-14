@@ -1,6 +1,6 @@
 import MainPage from '../../pages/main-page/main-page';
 import OffersPage from '../../pages/offer-page/offer-page';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, CARD_CLASS, OFFERS_LIST_CLASS } from '../../const/const';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
@@ -10,6 +10,8 @@ import { HelmetProvider } from 'react-helmet-async';
 import { DetailedOffer, Review } from '../../types/types';
 import { useAppSelector } from '../../hooks/use-app-dispatch';
 import LoadingScreen from '../../pages/loading/loading';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 
 type MainAppProps = {
@@ -21,8 +23,9 @@ function MainApp({ detailedOffers, reviews}: MainAppProps): React.JSX.Element {
 
   const offers = useAppSelector((state) => state.offers);
   const isOffersDataLoading = useAppSelector((state) => state.loadingStatus);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
-  if (isOffersDataLoading) {
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
     return (
       <LoadingScreen />
     );
@@ -30,7 +33,7 @@ function MainApp({ detailedOffers, reviews}: MainAppProps): React.JSX.Element {
   return (
 
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
             path={AppRoute.Root}
@@ -58,7 +61,7 @@ function MainApp({ detailedOffers, reviews}: MainAppProps): React.JSX.Element {
             path={AppRoute.Favorites}
             element={
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.Auth}
+                authorizationStatus={authorizationStatus}
               >
                 <FavoritesPage />
               </PrivateRoute>
@@ -75,7 +78,7 @@ function MainApp({ detailedOffers, reviews}: MainAppProps): React.JSX.Element {
 
         </Routes>
 
-      </BrowserRouter>
+      </ HistoryRouter>
     </HelmetProvider>
   );
 

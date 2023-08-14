@@ -7,7 +7,7 @@ type InitialState = {
   city: string;
   offers: Offer[];
   sortType: string;
-  authorizationStatus: string | undefined;
+  authorizationStatus: AuthorizationStatus;
   error: string | null;
   loadingStatus: boolean;
 }

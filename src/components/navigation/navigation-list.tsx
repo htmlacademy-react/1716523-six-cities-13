@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { logoutAction } from '../../store/api-action';
 
 function NavigationList(): React.JSX.Element {
   return (
@@ -16,7 +17,14 @@ function NavigationList(): React.JSX.Element {
         </Link>
       </li>
       <li className="header__nav-item">
-        <Link className="header__nav-link" to="/">
+        <Link
+          className="header__nav-link"
+          onClick={(evt) => {
+            evt.preventDefault();
+            dispatchEvent(logoutAction());
+          }}
+          to="/"
+        >
           <span className="header__signout">Sign out</span>
         </Link>
       </li>
