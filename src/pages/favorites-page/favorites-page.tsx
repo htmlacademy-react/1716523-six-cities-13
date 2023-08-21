@@ -8,7 +8,6 @@ import { useAppSelector } from '../../hooks/use-app-dispatch';
 function FavoritesPage() : React.JSX.Element {
 
   const favoriteOffers = useAppSelector((state) => state.favorites);
-  console.log(favoriteOffers);
   return(
     <div className="page">
       <Helmet>
