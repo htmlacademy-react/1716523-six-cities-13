@@ -1,4 +1,5 @@
 import { Fragment, useState } from 'react';
+import { useAppSelector } from '../../hooks/use-app-dispatch';
 
 interface Stars {
   [key: number]: string;
@@ -12,16 +13,37 @@ const starsTitle: Stars = {
   1: 'terribly'
 };
 
+type CommentForm = {
+  handleFormSubmit: (rating: number, review: string) => void;
+}
+
+const MIN_CHARACTERS_COUNT = 50;
+const MAX_CHARACTERS_COUNT = 100;
+
 const starsQuantity: number[] = [5, 4, 3, 2, 1];
 
-function CommentForm(): React.JSX.Element {
+function CommentForm({handleFormSubmit}: CommentForm): React.JSX.Element {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
 
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
+
+  const clearForm = () => {
+    handleFormSubmit(rating, review);
+    setReview('');
+    setRating(0);
+  };
+
+  const buttonIsDisabled =
+    review.length < MIN_CHARACTERS_COUNT
+    || review.length > MAX_CHARACTERS_COUNT
+    || !+rating || authStatus !== 'AUTH';
+
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <div className="reviews__form form">
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -35,6 +57,7 @@ function CommentForm(): React.JSX.Element {
               id={`${star}-stars`}
               type="radio"
               onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setRating(Number(evt.target.defaultValue))}
+              checked={rating === star}
             />
             <label
               htmlFor={`${star}-stars`}
@@ -65,13 +88,13 @@ function CommentForm(): React.JSX.Element {
         </p>
         <button
           className="reviews__submit form__submit button"
-          type="submit"
-          disabled
+          onClick={clearForm}
+          disabled={buttonIsDisabled}
         >
           Submit
         </button>
       </div>
-    </form>
+    </div>
   );
 }
 

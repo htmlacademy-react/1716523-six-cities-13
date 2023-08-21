@@ -53,3 +53,13 @@ export const OFFERS_LIST_CLASS = {
 export const SORT: string[] = ['Popular', 'Price: high to low', 'Price: low to high', 'Top rated first'];
 
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+export enum ApiRoute {
+  GetOffers = '/six-cities/offers',
+  Login = '/six-cities/login',
+  Logout = '/six-cities/logout',
+  Favorites = '/six-cities/favorite',
+  Comments = '/six-cities/comments',
+}
+
+export const TIMEOUT_SHOW_ERROR = 2000;

@@ -2,10 +2,13 @@ import Logo from '../../components/logo/logo';
 import NavigationList from '../../components/navigation/navigation-list';
 import { Helmet } from 'react-helmet-async';
 import { Titles } from '../../const/const';
-import { OffersType } from '../../types';
 import FavoritesList from '../../components/favorites-list/favorites-list';
+import { useAppSelector } from '../../hooks/use-app-dispatch';
 
-function FavoritesPage({offers}: OffersType) : React.JSX.Element {
+function FavoritesPage() : React.JSX.Element {
+
+  const favoriteOffers = useAppSelector((state) => state.favorites);
+  console.log(favoriteOffers);
   return(
     <div className="page">
       <Helmet>
@@ -27,7 +30,7 @@ function FavoritesPage({offers}: OffersType) : React.JSX.Element {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <FavoritesList offers={offers.filter(({isFavorite}) => isFavorite)} />
+            <FavoritesList offers={favoriteOffers} />
           </section>
         </div>
       </main>

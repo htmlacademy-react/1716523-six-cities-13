@@ -74,3 +74,23 @@ type User = {
 }
 
 export type OfferHouseType = 'room' | 'apartment' | 'house' | 'hotel';
+
+export type AuthData = {
+  login: string;
+  password: string;
+}
+
+export type UserData = {
+  name: string;
+  email: string;
+  token: string;
+  avatarUrl: string;
+  isPro: boolean;
+}
+
+export type Comment = {
+  comment: string;
+  rating: number;
+  id: string | undefined;
+}
+

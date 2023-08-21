@@ -13,6 +13,7 @@ type MapProps = {
 
 function Map({offers, city, activeCard}: MapProps): React.JSX.Element {
 
+
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -31,7 +32,7 @@ function Map({offers, city, activeCard}: MapProps): React.JSX.Element {
   useEffect(() => {
 
     const markers = layerGroup();
-    if (map) {
+    if (map && city) {
       map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
       offers.forEach((point) => {
         new Marker({

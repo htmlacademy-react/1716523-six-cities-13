@@ -9,22 +9,25 @@ import { CitiesNav } from '../../components/cities-nav/cities-nav';
 import { useAppSelector } from '../../hooks/use-app-dispatch';
 import { SortForm } from '../../components/sort/sort-form';
 import { getAvailableOffers, getSortedOffers } from '../../utils/utils';
+import { Offer } from '../../types';
 
 type MainPageProps = {
+  offers: Offer[];
   cardClass: string;
   offerListClass: string;
 };
 
-function MainPage({ cardClass, offerListClass}: MainPageProps): React.JSX.Element {
+function MainPage({ offers, cardClass, offerListClass}: MainPageProps): React.JSX.Element {
 
   const [activeCard, setActiveCard] = useState<string | null>(null);
   const currentSortType = useAppSelector((state) => state.sortType);
   const currentCity = useAppSelector((state) => state.city);
-  const allOffers = useAppSelector((state) => state.offers);
 
-  const availableOffers = getAvailableOffers(allOffers, currentCity);
+  const availableOffers = getAvailableOffers(offers, currentCity);
 
   const sortedOffers = getSortedOffers(availableOffers, currentSortType);
+
+  const city = availableOffers[0]?.city;
 
   return (
     <div className="page page--gray page--main">
@@ -76,7 +79,7 @@ function MainPage({ cardClass, offerListClass}: MainPageProps): React.JSX.Elemen
               <section className="cities__map map">
                 <Map
                   offers={availableOffers}
-                  city={availableOffers[0].city}
+                  city={city}
                   activeCard={activeCard}
                 />
               </section>

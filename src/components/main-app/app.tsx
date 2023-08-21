@@ -1,25 +1,39 @@
 import MainPage from '../../pages/main-page/main-page';
 import OffersPage from '../../pages/offer-page/offer-page';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, CARD_CLASS, OFFERS_LIST_CLASS } from '../../const/const';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import NotFound from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
-import { DetailedOffer, Offer, Review } from '../../types/types';
+import { DetailedOffer, Review } from '../../types/types';
+import { useAppSelector } from '../../hooks/use-app-dispatch';
+import LoadingScreen from '../../pages/loading/loading';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 
 type MainAppProps = {
-  offers: Offer[];
   detailedOffers: DetailedOffer[];
   reviews: Review[];
 };
 
-function MainApp({offers, detailedOffers, reviews}: MainAppProps): React.JSX.Element {
+function MainApp({ detailedOffers, reviews}: MainAppProps): React.JSX.Element {
+
+  const offers = useAppSelector((state) => state.offers);
+  const isOffersDataLoading = useAppSelector((state) => state.loadingStatus);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
   return (
+
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
             path={AppRoute.Root}
@@ -47,11 +61,9 @@ function MainApp({offers, detailedOffers, reviews}: MainAppProps): React.JSX.Ele
             path={AppRoute.Favorites}
             element={
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.Auth}
+                authorizationStatus={authorizationStatus}
               >
-                <FavoritesPage
-                  offers={offers}
-                />
+                <FavoritesPage />
               </PrivateRoute>
             }
           />
@@ -66,7 +78,7 @@ function MainApp({offers, detailedOffers, reviews}: MainAppProps): React.JSX.Ele
 
         </Routes>
 
-      </BrowserRouter>
+      </ HistoryRouter>
     </HelmetProvider>
   );
 
