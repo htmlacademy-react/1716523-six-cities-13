@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { DetailedOffer, Offer, Review, UserData, Comment } from '../types';
+import { DetailedOffer, Offer, Review, UserData } from '../types';
 import { AppRoute, AuthorizationStatus } from '../const/const';
 
 export const changeCity = createAction('CHANGE_CITY', (value: string) => ({
@@ -36,4 +36,4 @@ export const loadNearByOffers = createAction<Offer[]>('LOAD_NEARBY_OFFERS');
 
 export const loadReviews = createAction<Review[]>('LOAD_REVIEWS');
 
-export const postComment = createAction('POST_COMMENT', (newComment: Comment) => ({payload: newComment}));
+export const postComment = createAction('POST_COMMENT', (newComment: Review) => ({payload: newComment}));
