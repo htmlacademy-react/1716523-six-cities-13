@@ -81,7 +81,16 @@ export type AuthData = {
 }
 
 export type UserData = {
-  id: number;
+  name: string;
   email: string;
   token: string;
+  avatarUrl: string;
+  isPro: boolean;
 }
+
+export type Comment = {
+  comment: string;
+  rating: number;
+  id: string | undefined;
+}
+

@@ -58,6 +58,8 @@ export enum ApiRoute {
   GetOffers = '/six-cities/offers',
   Login = '/six-cities/login',
   Logout = '/six-cities/logout',
+  Favorites = '/six-cities/favorite',
+  Comments = '/six-cities/comments',
 }
 
 export const TIMEOUT_SHOW_ERROR = 2000;
