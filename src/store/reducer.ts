@@ -79,7 +79,6 @@ const reducer = createReducer(initialState, (builder) => {
       state.reviews = action.payload;
     })
     .addCase(postComment, (state, action) => {
-      // state.reviews = state.reviews.push(action.payload);
       state.reviews = [...state.reviews, action.payload];
     });
 });
