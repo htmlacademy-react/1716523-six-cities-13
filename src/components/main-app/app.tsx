@@ -7,19 +7,13 @@ import LoginPage from '../../pages/login-page/login-page';
 import NotFound from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
-import { DetailedOffer, Review } from '../../types/types';
 import { useAppSelector } from '../../hooks/use-app-dispatch';
 import LoadingScreen from '../../pages/loading/loading';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
 
-type MainAppProps = {
-  detailedOffers: DetailedOffer[];
-  reviews: Review[];
-};
-
-function MainApp({ detailedOffers, reviews}: MainAppProps): React.JSX.Element {
+function MainApp(): React.JSX.Element {
 
   const offers = useAppSelector((state) => state.offers);
   const isOffersDataLoading = useAppSelector((state) => state.loadingStatus);
@@ -49,9 +43,6 @@ function MainApp({ detailedOffers, reviews}: MainAppProps): React.JSX.Element {
             path={AppRoute.Offers}
             element={
               <OffersPage
-                detailedOffers={detailedOffers}
-                reviews={reviews}
-                offers={offers}
                 cardClass={CARD_CLASS.nearBy}
                 offerListClass={OFFERS_LIST_CLASS.offerPage}
               />

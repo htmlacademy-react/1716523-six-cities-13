@@ -4,23 +4,17 @@ import NavigationList from '../../components/navigation/navigation-list';
 import { Helmet } from 'react-helmet-async';
 import { Titles } from '../../const/const';
 import CommentForm from '../../components/comment-form/comment-form';
-// import { Offer, Review } from '../../types';
 import OfferGallery from '../../components/detailed-offer-gallery/offer-gallery';
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
 import { OffersList } from '../../components/offers-list/offers-list';
 import { useEffect, useState } from 'react';
 import { fetchDetailedOffer, fetchNearbyOffers, fetchReviews, postUserComment } from '../../store/api-action';
-// import { store } from '../../store';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import NotFound from '../not-found-page/not-found-page';
-// import { useAppSelector } from '../../hooks/use-app-dispatch';
 
 
 type OffersPageProps = {
-  // detailedOffers: DetailedOffer[];
-  // reviews: Review[];
-  // offers: Offer[];
   cardClass: string;
   offerListClass: string;
 }
@@ -42,23 +36,14 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
       dispatch(fetchDetailedOffer(id));
       dispatch(fetchNearbyOffers(id));
       dispatch(fetchReviews(id));
-      // dispatch(postUserComment({comment, id, rating}));
     }
   }, []);
 
-  // store.dispatch(fetchDetailedOffer(params.id));
-
-  // const offerWithDetails = useAppSelector((state) => state.detailedOffer);
-
-  // const detailedOffer = detailedOffers.find((offer) => offer.id === params.id);
 
   const detailedOffer = useAppSelector((state) => state.detailedOffer);
   const nearbyOffers = useAppSelector((state) => state.nearByOffers);
   const reviews = useAppSelector((state) => state.reviews);
 
-  // console.log(detailedOffer, 'detailedOffer')
-
-  // const offers = useAppSelector((state) => state.offers);
   if (detailedOffer) {
     return (
       <div className="page">
