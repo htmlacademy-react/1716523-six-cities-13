@@ -88,9 +88,4 @@ export type UserData = {
   isPro: boolean;
 }
 
-// export type Comment = {
-//   comment: string;
-//   rating: number;
-//   id?: string;
-// }
 
