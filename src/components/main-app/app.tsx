@@ -11,13 +11,15 @@ import { useAppSelector } from '../../hooks/use-app-dispatch';
 import LoadingScreen from '../../pages/loading/loading';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import { getLoadingStatus, getOffers } from '../../store/data-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 
 function MainApp(): React.JSX.Element {
 
-  const offers = useAppSelector((state) => state.offers);
-  const isOffersDataLoading = useAppSelector((state) => state.loadingStatus);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const offers = useAppSelector(getOffers);
+  const isOffersDataLoading = useAppSelector(getLoadingStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
     return (

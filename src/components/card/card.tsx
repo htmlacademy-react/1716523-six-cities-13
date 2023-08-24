@@ -7,7 +7,7 @@ import { HOUSE_TYPE } from '../../const/const';
 type PlaceCardProps ={
   offer: Offer;
   activeCard: string | null;
-  setActiveCard: React.Dispatch<React.SetStateAction<string | null>>;
+  setActiveCard: (id: string | null) => void;
   cardClass: string;
 }
 

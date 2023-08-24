@@ -1,12 +1,13 @@
-import { useRef } from 'react';
+import { memo, useRef } from 'react';
 import { SORT } from '../../const/const';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
-import { sortOffers } from '../../store/action';
+import { sortOffers } from '../../store/app-process/app-process';
+import { getSortType } from '../../store/app-process/selectors';
 
 
-export function SortForm(): React.JSX.Element {
+function SortForm(): React.JSX.Element {
 
-  const currentSortType = useAppSelector((state) => state.sortType);
+  const currentSortType = useAppSelector(getSortType);
   const dispatch = useAppDispatch();
 
   const sortRef = useRef<HTMLUListElement | null>(null);
@@ -49,3 +50,4 @@ export function SortForm(): React.JSX.Element {
   );
 }
 
+export default memo(SortForm);

@@ -1,12 +1,12 @@
 import {Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const/const';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, memo } from 'react';
 import useMap from '../../hooks/use-map';
 import { City, Offer } from '../../types';
 
 type MapProps = {
-  city: City;
+  city: City | undefined;
   offers: Offer[];
   activeCard: string | null;
 };
@@ -28,6 +28,8 @@ function Map({offers, city, activeCard}: MapProps): React.JSX.Element {
     iconSize: [30, 40],
     iconAnchor: [20, 40]
   });
+
+  // const markers = layerGroup();
 
   useEffect(() => {
 
@@ -59,4 +61,4 @@ function Map({offers, city, activeCard}: MapProps): React.JSX.Element {
   );
 }
 
-export default Map;
+export default memo(Map);

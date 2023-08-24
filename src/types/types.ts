@@ -21,7 +21,7 @@ export type Offer =
 export type City = {
     name: string;
     location: LocationType;
-  }
+  } | undefined
 
   type LocationType = {
       latitude: number;

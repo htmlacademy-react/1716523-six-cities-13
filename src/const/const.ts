@@ -62,4 +62,11 @@ export enum ApiRoute {
   Comments = '/six-cities/comments',
 }
 
+export enum NameSpace {
+  Data = 'DATA',
+  App = 'APP',
+  Offer = 'OFFER',
+  User = 'USER',
+}
+
 export const TIMEOUT_SHOW_ERROR = 2000;

@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom';
 import { CITIES } from '../../const/const';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
-import { changeCity } from '../../store/action';
+import { changeCity } from '../../store/app-process/app-process';
+import { memo } from 'react';
+import { getCity } from '../../store/app-process/selectors';
 
-export function CitiesNav(): React.JSX.Element {
+function CitiesNav(): React.JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const currentCity = useAppSelector((state) => state.city);
+  // const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector(getCity);
 
   return (
     <ul className="locations__list tabs__list">
@@ -26,3 +29,4 @@ export function CitiesNav(): React.JSX.Element {
   );
 }
 
+export default memo(CitiesNav);

@@ -4,12 +4,13 @@ import { Helmet } from 'react-helmet-async';
 import { Titles } from '../../const/const';
 import { OffersList } from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
-import { useState } from 'react';
-import { CitiesNav } from '../../components/cities-nav/cities-nav';
+import { memo, useCallback, useState } from 'react';
+import CitiesNav from '../../components/cities-nav/cities-nav';
 import { useAppSelector } from '../../hooks/use-app-dispatch';
-import { SortForm } from '../../components/sort/sort-form';
+import SortForm from '../../components/sort/sort-form';
 import { getAvailableOffers, getSortedOffers } from '../../utils/utils';
 import { Offer } from '../../types';
+import { getCity, getSortType } from '../../store/app-process/selectors';
 
 type MainPageProps = {
   offers: Offer[];
@@ -20,8 +21,13 @@ type MainPageProps = {
 function MainPage({ offers, cardClass, offerListClass}: MainPageProps): React.JSX.Element {
 
   const [activeCard, setActiveCard] = useState<string | null>(null);
-  const currentSortType = useAppSelector((state) => state.sortType);
-  const currentCity = useAppSelector((state) => state.city);
+
+  const updateActiveCard = useCallback((id: string | null) => {
+    setActiveCard(id);
+  }, []);
+
+  const currentSortType = useAppSelector(getSortType);
+  const currentCity = useAppSelector(getCity);
 
   const availableOffers = getAvailableOffers(offers, currentCity);
 
@@ -70,7 +76,7 @@ function MainPage({ offers, cardClass, offerListClass}: MainPageProps): React.JS
               <OffersList
                 offers={sortedOffers}
                 activeCard={activeCard}
-                setActiveCard={setActiveCard}
+                updateActiveCard={updateActiveCard}
                 cardClass={cardClass}
                 offerListClass={offerListClass}
               />
@@ -91,4 +97,4 @@ function MainPage({ offers, cardClass, offerListClass}: MainPageProps): React.JS
   );
 }
 
-export default MainPage;
+export default memo(MainPage);
