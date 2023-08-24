@@ -50,6 +50,9 @@ export const dataProcess = createSlice({
         state.isDetailedOfferLoading = false;
         state.detailedOffer = action.payload;
       })
+      .addCase(fetchDetailedOffer.rejected, (state) => {
+        state.isDetailedOfferLoading = false;
+      })
       .addCase(fetchFavoritesAction.pending, (state) => {
         state.isFavoritesLoading = true;
       })

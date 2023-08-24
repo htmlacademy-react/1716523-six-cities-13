@@ -6,7 +6,7 @@ import useMap from '../../hooks/use-map';
 import { City, Offer } from '../../types';
 
 type MapProps = {
-  city: City | undefined;
+  city: City;
   offers: Offer[];
   activeCard: string | null;
 };
@@ -29,7 +29,6 @@ function Map({offers, city, activeCard}: MapProps): React.JSX.Element {
     iconAnchor: [20, 40]
   });
 
-  // const markers = layerGroup();
 
   useEffect(() => {
 
