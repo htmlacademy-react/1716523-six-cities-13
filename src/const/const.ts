@@ -69,4 +69,9 @@ export enum NameSpace {
   User = 'USER',
 }
 
+export enum FavoriteStatus {
+  AddToFavorite = 1,
+  DeleteFromFavorite = 0
+}
+
 export const TIMEOUT_SHOW_ERROR = 2000;

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, AuthData, DetailedOffer, Offer, Review, State, UserData } from '../types';
 import { AxiosInstance } from 'axios';
-import { ApiRoute, AppRoute } from '../const/const';
+import { ApiRoute, AppRoute, FavoriteStatus } from '../const/const';
 // import { setError} from './action';
 import { dropToken, saveToken } from '../services/token';
 // import { store } from '.';
@@ -30,6 +30,17 @@ export const fetchFavoritesAction = createAsyncThunk<Offer[], undefined, {
   async (_arg, { extra: api }) => {
     const {data} = await api.get<Offer[]>(ApiRoute.Favorites);
     // dispatch(loadFavorites(data));
+    return data;
+  }
+);
+
+export const changeFavoriteStatus = createAsyncThunk<DetailedOffer, DetailedOffer['id'], {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>('offers/changeFavoriteStatus',
+  async ({offerId}, {extra: api}) => {
+    const data = await api.post<DetailedOffer>(`${ApiRoute.Favorites}/${offerId}/${FavoriteStatus.AddToFavorite}`)
     return data;
   }
 );
@@ -124,8 +135,6 @@ export const postUserComment = createAsyncThunk<Review, Partial<Review>, {
 
     const {data} = await api.post<Review>(`${ApiRoute.Comments}/${id as string}`, {comment, rating});
     return data;
-    // dispatch(postComment(data));
-
   }
 );
 
@@ -138,8 +147,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, { extra: api}) => {
     await api.delete(ApiRoute.Logout);
     dropToken();
-    // dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
-    // dispatch(clearUserData());
   }
 );
 
