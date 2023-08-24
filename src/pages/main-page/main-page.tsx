@@ -11,6 +11,7 @@ import SortForm from '../../components/sort/sort-form';
 import { getAvailableOffers, getSortedOffers } from '../../utils/utils';
 import { Offer } from '../../types';
 import { getCity, getSortType } from '../../store/app-process/selectors';
+import MainPageEmpty from '../../components/main-page-empty/main-page-empty';
 
 type MainPageProps = {
   offers: Offer[];
@@ -67,31 +68,33 @@ function MainPage({ offers, cardClass, offerListClass}: MainPageProps): React.JS
             <CitiesNav />
           </section>
         </div>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{availableOffers.length} places to stay in {currentCity}</b>
-              <SortForm />
-              <OffersList
-                offers={sortedOffers}
-                activeCard={activeCard}
-                updateActiveCard={updateActiveCard}
-                cardClass={cardClass}
-                offerListClass={offerListClass}
-              />
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map
-                  offers={availableOffers}
-                  city={city}
+        {availableOffers.length ?
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{availableOffers.length} places to stay in {currentCity}</b>
+                <SortForm />
+                <OffersList
+                  offers={sortedOffers}
                   activeCard={activeCard}
+                  updateActiveCard={updateActiveCard}
+                  cardClass={cardClass}
+                  offerListClass={offerListClass}
                 />
               </section>
+              <div className="cities__right-section">
+                <section className="cities__map map">
+                  <Map
+                    offers={availableOffers}
+                    city={city}
+                    activeCard={activeCard}
+                  />
+                </section>
+              </div>
             </div>
-          </div>
-        </div>
+          </div> : <MainPageEmpty />}
+
       </main>
     </div>
   );
