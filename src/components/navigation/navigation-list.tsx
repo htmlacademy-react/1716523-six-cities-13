@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom';
 import { logoutAction } from '../../store/api-action';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
+import { memo } from 'react';
+import { getAuthorizationStatus, getUserData } from '../../store/user-process/selectors';
+import { getFavorites } from '../../store/data-process/selectors';
 
 function NavigationList(): React.JSX.Element {
 
   const dispatch = useAppDispatch();
-  const {email} = useAppSelector((state) => state.userData);
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
-  const favoritesQuantity = useAppSelector((state) => state.favorites.length);
+  const {email} = useAppSelector(getUserData);
+  const authStatus = useAppSelector(getAuthorizationStatus);
+  const favoritesQuantity = useAppSelector(getFavorites);
+  const userData = useAppSelector(getUserData);
 
   return (
     <ul className="header__nav-list">
@@ -16,11 +20,11 @@ function NavigationList(): React.JSX.Element {
           className="header__nav-link header__nav-link--profile"
           to="/favorites"
         >
-          <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+          <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: `url(${userData.avatarUrl})`}}></div>
           <span className="header__user-name user__name">
             {email}
           </span>
-          <span className="header__favorite-count">{favoritesQuantity}</span>
+          <span className="header__favorite-count">{favoritesQuantity.length}</span>
         </Link>
       </li>
       <li className="header__nav-item">
@@ -46,4 +50,4 @@ function NavigationList(): React.JSX.Element {
   );
 }
 
-export default NavigationList;
+export default memo(NavigationList);

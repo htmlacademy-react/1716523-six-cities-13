@@ -2,12 +2,14 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/types';
 import { ratingCount } from '../../utils/utils';
-import { HOUSE_TYPE } from '../../const/const';
+import { BookMarkButtonClasses, BookMarkPlaceCardSize, HOUSE_TYPE } from '../../const/const';
+import { FavoriteButton } from '../favorite-button/favorite-button';
+
 
 type PlaceCardProps ={
   offer: Offer;
   activeCard: string | null;
-  setActiveCard: React.Dispatch<React.SetStateAction<string | null>>;
+  setActiveCard: (id: string | null) => void;
   cardClass: string;
 }
 
@@ -48,7 +50,13 @@ function PlaceCard({offer, activeCard, setActiveCard, cardClass}: PlaceCardProps
             <b className="place-card__price-value">€{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button
+          <FavoriteButton
+            id={offer.id}
+            isFavorite={offer.isFavorite}
+            bookMarkClass={BookMarkButtonClasses.placeCard}
+            bookMarkSize={BookMarkPlaceCardSize}
+          />
+          {/* <button
             className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : '' } button`}
             type="button"
           >
@@ -60,7 +68,7 @@ function PlaceCard({offer, activeCard, setActiveCard, cardClass}: PlaceCardProps
               <use xlinkHref="#icon-bookmark" />
             </svg>
             <span className="visually-hidden">To bookmarks</span>
-          </button>
+          </button> */}
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

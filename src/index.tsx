@@ -8,6 +8,7 @@ import { store } from './store';
 import { checkAuthAction, fetchOffersAction } from './store/api-action';
 import ErrorMessage from './components/error-message/error-message';
 
+
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
 

@@ -4,10 +4,11 @@ import { Helmet } from 'react-helmet-async';
 import { Titles } from '../../const/const';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import { useAppSelector } from '../../hooks/use-app-dispatch';
+import { getFavorites } from '../../store/data-process/selectors';
 
 function FavoritesPage() : React.JSX.Element {
 
-  const favoriteOffers = useAppSelector((state) => state.favorites);
+  const favoriteOffers = useAppSelector(getFavorites);
   return(
     <div className="page">
       <Helmet>

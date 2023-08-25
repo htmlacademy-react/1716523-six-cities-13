@@ -1,5 +1,6 @@
 import { Fragment, useState } from 'react';
 import { useAppSelector } from '../../hooks/use-app-dispatch';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 interface Stars {
   [key: number]: string;
@@ -24,11 +25,10 @@ const starsQuantity: number[] = [5, 4, 3, 2, 1];
 
 function CommentForm({handleFormSubmit}: CommentForm): React.JSX.Element {
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
 
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthorizationStatus);
 
   const clearForm = () => {
     handleFormSubmit(rating, review);

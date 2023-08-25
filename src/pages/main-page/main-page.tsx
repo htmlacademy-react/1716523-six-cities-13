@@ -4,12 +4,14 @@ import { Helmet } from 'react-helmet-async';
 import { Titles } from '../../const/const';
 import { OffersList } from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
-import { useState } from 'react';
-import { CitiesNav } from '../../components/cities-nav/cities-nav';
+import { memo, useCallback, useState } from 'react';
+import CitiesNav from '../../components/cities-nav/cities-nav';
 import { useAppSelector } from '../../hooks/use-app-dispatch';
-import { SortForm } from '../../components/sort/sort-form';
+import SortForm from '../../components/sort/sort-form';
 import { getAvailableOffers, getSortedOffers } from '../../utils/utils';
 import { Offer } from '../../types';
+import { getCity, getSortType } from '../../store/app-process/selectors';
+import MainPageEmpty from '../../components/main-page-empty/main-page-empty';
 
 type MainPageProps = {
   offers: Offer[];
@@ -20,8 +22,13 @@ type MainPageProps = {
 function MainPage({ offers, cardClass, offerListClass}: MainPageProps): React.JSX.Element {
 
   const [activeCard, setActiveCard] = useState<string | null>(null);
-  const currentSortType = useAppSelector((state) => state.sortType);
-  const currentCity = useAppSelector((state) => state.city);
+
+  const updateActiveCard = useCallback((id: string | null) => {
+    setActiveCard(id);
+  }, []);
+
+  const currentSortType = useAppSelector(getSortType);
+  const currentCity = useAppSelector(getCity);
 
   const availableOffers = getAvailableOffers(offers, currentCity);
 
@@ -30,7 +37,7 @@ function MainPage({ offers, cardClass, offerListClass}: MainPageProps): React.JS
   const city = availableOffers[0]?.city;
 
   return (
-    <div className="page page--gray page--main">
+    <div className={`page page--gray page--main ${availableOffers.length ? '' : 'page__main--index-empty'}`}>
       <Helmet>
         <title>{Titles.MainTitle}</title>
       </Helmet>
@@ -61,34 +68,36 @@ function MainPage({ offers, cardClass, offerListClass}: MainPageProps): React.JS
             <CitiesNav />
           </section>
         </div>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{availableOffers.length} places to stay in {currentCity}</b>
-              <SortForm />
-              <OffersList
-                offers={sortedOffers}
-                activeCard={activeCard}
-                setActiveCard={setActiveCard}
-                cardClass={cardClass}
-                offerListClass={offerListClass}
-              />
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map
-                  offers={availableOffers}
-                  city={city}
+        {availableOffers.length ?
+          <div className="cities">
+            <div className={`cities__places-container ${availableOffers.length ? '' : 'cities__places-container container'} container`}>
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{availableOffers.length} places to stay in {currentCity}</b>
+                <SortForm />
+                <OffersList
+                  offers={sortedOffers}
                   activeCard={activeCard}
+                  updateActiveCard={updateActiveCard}
+                  cardClass={cardClass}
+                  offerListClass={offerListClass}
                 />
               </section>
+              <div className="cities__right-section">
+                <section className="cities__map map">
+                  <Map
+                    offers={availableOffers}
+                    city={city}
+                    activeCard={activeCard}
+                  />
+                </section>
+              </div>
             </div>
-          </div>
-        </div>
+          </div> : <MainPageEmpty />}
+
       </main>
     </div>
   );
 }
 
-export default MainPage;
+export default memo(MainPage);

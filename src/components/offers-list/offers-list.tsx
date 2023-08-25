@@ -6,12 +6,13 @@ import PlaceCard from '../card/card';
 type OfferListProps = {
   offers: Offer[];
   activeCard: string | null;
-  setActiveCard: React.Dispatch<React.SetStateAction<string | null>>;
+  // updateActiveCard: React.Dispatch<React.SetStateAction<string | null>>;
+  updateActiveCard: (id: string | null) => void;
   cardClass: string;
   offerListClass: string;
 }
 
-export function OffersList({offers, activeCard, setActiveCard, cardClass, offerListClass}: OfferListProps): React.JSX.Element {
+export function OffersList({offers, activeCard, updateActiveCard, cardClass, offerListClass}: OfferListProps): React.JSX.Element {
 
   const cities = new Set<string>();
 
@@ -24,7 +25,7 @@ export function OffersList({offers, activeCard, setActiveCard, cardClass, offerL
           key={offer.id}
           offer={offer}
           activeCard={activeCard}
-          setActiveCard={setActiveCard}
+          setActiveCard={updateActiveCard}
           cardClass={cardClass}
         />
       ))}
