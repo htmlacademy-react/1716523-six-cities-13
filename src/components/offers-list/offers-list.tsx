@@ -6,7 +6,6 @@ import PlaceCard from '../card/card';
 type OfferListProps = {
   offers: Offer[];
   activeCard: string | null;
-  // updateActiveCard: React.Dispatch<React.SetStateAction<string | null>>;
   updateActiveCard: (id: string | null) => void;
   cardClass: string;
   offerListClass: string;

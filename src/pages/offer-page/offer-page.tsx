@@ -87,12 +87,6 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
                     bookMarkClass={BookMarkButtonClasses.detailedOfferCard}
                     bookMarkSize={BookMarkOfferSize}
                   />
-                  {/* <button className='offer__bookmark-button button' type='button'>
-                    <svg className='offer__bookmark-icon' width={31} height={33}>
-                      <use xlinkHref='#icon-bookmark' />
-                    </svg>
-                    <span className='visually-hidden'>To bookmarks</span>
-                  </button> */}
                 </div>
                 <div className='offer__rating rating'>
                   <div className='offer__stars rating__stars'>
