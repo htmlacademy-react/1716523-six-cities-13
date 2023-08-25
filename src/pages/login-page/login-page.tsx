@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import { Link } from 'react-router-dom';
 import { FormEvent, useRef } from 'react';
 import { loginAction } from '../../store/api-action';
+import { getCity } from '../../store/app-process/selectors';
 
 function LoginPage(): React.JSX.Element {
 
@@ -13,7 +14,7 @@ function LoginPage(): React.JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector(getCity);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();

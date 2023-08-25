@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { DetailedOffer, Offer, Review } from '../../types';
 import { NameSpace } from '../../const/const';
-import { fetchDetailedOffer, fetchFavoritesAction, fetchNearbyOffers, fetchOffersAction, fetchReviews, postUserComment } from '../api-action';
+import { changeFavoriteStatus, fetchDetailedOffer, fetchFavoritesAction, fetchNearbyOffers, fetchOffersAction, fetchReviews, postUserComment } from '../api-action';
 
 
 type DataProcess = {
@@ -33,7 +33,18 @@ const initialState: DataProcess = {
 export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {},
+  reducers: {
+    toggleFavoriteStatus: (state, action: PayloadAction<{id: string; isFavorite: boolean}>) => {
+      state.offers.forEach((offer) => {
+        if (offer.id === action.payload.id) {
+          offer.isFavorite = action.payload.isFavorite;
+        }
+      });
+    },
+    resetFavorites: (state) => {
+      state.favorites = [];
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
@@ -76,6 +87,11 @@ export const dataProcess = createSlice({
       })
       .addCase(postUserComment.fulfilled, (state, action) => {
         state.reviews = [...state.reviews, action.payload];
+      })
+      .addCase(changeFavoriteStatus.fulfilled, (state, action) => {
+        state.detailedOffer = action.payload;
       });
   }
 });
+
+export const {toggleFavoriteStatus, resetFavorites} = dataProcess.actions;

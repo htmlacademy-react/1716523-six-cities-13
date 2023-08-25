@@ -74,4 +74,19 @@ export enum FavoriteStatus {
   DeleteFromFavorite = 0
 }
 
+export enum BookMarkButtonClasses {
+  placeCard = 'place-card',
+  detailedOfferCard = 'offer',
+}
+
+export enum BookMarkPlaceCardSize {
+  width = 18,
+  height = 19,
+}
+
+export enum BookMarkOfferSize {
+  width = 31,
+  height = 33,
+}
+
 export const TIMEOUT_SHOW_ERROR = 2000;

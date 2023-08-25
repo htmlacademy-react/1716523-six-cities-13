@@ -37,7 +37,7 @@ function MainPage({ offers, cardClass, offerListClass}: MainPageProps): React.JS
   const city = availableOffers[0]?.city;
 
   return (
-    <div className="page page--gray page--main">
+    <div className={`page page--gray page--main ${availableOffers.length ? '' : 'page__main--index-empty'}`}>
       <Helmet>
         <title>{Titles.MainTitle}</title>
       </Helmet>
@@ -70,7 +70,7 @@ function MainPage({ offers, cardClass, offerListClass}: MainPageProps): React.JS
         </div>
         {availableOffers.length ?
           <div className="cities">
-            <div className="cities__places-container container">
+            <div className={`cities__places-container ${availableOffers.length ? '' : 'cities__places-container container'} container`}>
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{availableOffers.length} places to stay in {currentCity}</b>
