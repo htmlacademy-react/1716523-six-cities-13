@@ -11,7 +11,7 @@ function ReviewList({ reviews }: ReviewListProps) {
 
   let sortedReviews: Review[] = [];
   if (reviews.length) {
-    sortedReviews = [...reviews].sort((a: Review, b: Review) => new Date(b.date) - new Date(a.date)).slice(0, MAX_REVIEWS_COUNT);
+    sortedReviews = [...reviews].sort((a: Review, b: Review) => new Date(b.date).valueOf() - new Date(a.date).valueOf()).slice(0, MAX_REVIEWS_COUNT);
   }
 
   return (
