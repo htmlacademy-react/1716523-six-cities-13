@@ -5,11 +5,25 @@ type ReviewListProps = {
   reviews: Review[];
 }
 
-function ReviewList({reviews}: ReviewListProps) {
-  return(
-    <ul className="reviews__list">
-      {reviews.map((review) => <ReviewItem review={review} key={review.id} />)}
-    </ul>
+const MAX_REVIEWS_COUNT = 10;
+
+function ReviewList({ reviews }: ReviewListProps) {
+
+  let sortedReviews: Review[] = [];
+  if (reviews.length) {
+    sortedReviews = [...reviews].sort((a: Review, b: Review) => new Date(b.date).valueOf() - new Date(a.date).valueOf()).slice(0, MAX_REVIEWS_COUNT);
+  }
+
+  return (
+    <>
+      <h2 className='reviews__title'>
+        Reviews · <span className='reviews__amount'>{sortedReviews.length}</span>
+      </h2>
+      <ul className="reviews__list">
+        {sortedReviews.map((review) => <ReviewItem review={review} key={review.id} />)}
+      </ul>
+    </>
+
   );
 }
 

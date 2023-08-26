@@ -9,7 +9,6 @@ function CitiesNav(): React.JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  // const currentCity = useAppSelector((state) => state.city);
   const currentCity = useAppSelector(getCity);
 
   return (

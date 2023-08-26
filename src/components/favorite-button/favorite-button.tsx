@@ -1,9 +1,7 @@
-// import { FavoriteStatus } from "../../const/const"
+
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import { changeFavoriteStatus, fetchFavoritesAction } from '../../store/api-action';
-// import { toggleFavoriteStatus } from '../../store/data-process/data-process';
-// import { getDetailedOffer } from '../../store/data-process/selectors';
 import { AppRoute } from '../../const/const';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
@@ -19,8 +17,6 @@ type FavoriteButtonProps = {
 
 export const FavoriteButton = ({id, isFavorite, bookMarkClass, bookMarkSize}: FavoriteButtonProps): React.JSX.Element => {
 
-  // const offer = useAppSelector(getDetailedOffer);
-
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const navigate = useNavigate();
@@ -34,7 +30,7 @@ export const FavoriteButton = ({id, isFavorite, bookMarkClass, bookMarkSize}: Fa
       dispatch(changeFavoriteStatus({id, isFavorite: !isFavorite}));
       dispatch(fetchFavoritesAction());
     }
-    // dispatch(toggleFavoriteStatus(id, isFavorite ? 1 : 0));
+
   };
   return (
     <button

@@ -15,6 +15,7 @@ import { getDetailedOffer, getDetailedOfferLoadingStatus, getNearByOffers, getRe
 import LoadingScreen from '../loading/loading';
 import NotFound from '../not-found-page/not-found-page';
 import { FavoriteButton } from '../../components/favorite-button/favorite-button';
+import { Offer } from '../../types';
 
 
 type OffersPageProps = {
@@ -36,6 +37,8 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
   const detailedOffer = useAppSelector(getDetailedOffer);
   const nearbyOffers = useAppSelector(getNearByOffers);
   const reviews = useAppSelector(getReviews);
+
+  const offersToShowInMap = nearbyOffers.slice(0, 3).concat(detailedOffer as unknown as Offer);
 
   const isOfferLoading = useAppSelector(getDetailedOfferLoadingStatus);
 
@@ -87,12 +90,6 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
                     bookMarkClass={BookMarkButtonClasses.detailedOfferCard}
                     bookMarkSize={BookMarkOfferSize}
                   />
-                  {/* <button className='offer__bookmark-button button' type='button'>
-                    <svg className='offer__bookmark-icon' width={31} height={33}>
-                      <use xlinkHref='#icon-bookmark' />
-                    </svg>
-                    <span className='visually-hidden'>To bookmarks</span>
-                  </button> */}
                 </div>
                 <div className='offer__rating rating'>
                   <div className='offer__stars rating__stars'>
@@ -143,9 +140,7 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
                   </div>
                 </div>
                 <section className='offer__reviews reviews'>
-                  <h2 className='reviews__title'>
-                    Reviews · <span className='reviews__amount'>{reviews.length}</span>
-                  </h2>
+
                   <ReviewList reviews={reviews} />
                   <CommentForm
                     handleFormSubmit={handleFormSubmit}
@@ -155,9 +150,9 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
             </div>
             <section className='offer__map map'>
               <Map
-                offers={nearbyOffers.slice(0, 3)}
+                offers={offersToShowInMap}
                 city={detailedOffer.city}
-                activeCard={activeCard}
+                activeCard={detailedOffer.id}
               />
             </section>
           </section>

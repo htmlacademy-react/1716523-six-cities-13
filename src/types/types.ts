@@ -88,4 +88,8 @@ export type UserData = {
   isPro: boolean;
 }
 
+export type HandleButtonFavoriteClickProps = {
+  id: string;
+  isFavorite: boolean;
+}
 
