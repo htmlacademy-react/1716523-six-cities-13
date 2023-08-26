@@ -15,6 +15,7 @@ import { getDetailedOffer, getDetailedOfferLoadingStatus, getNearByOffers, getRe
 import LoadingScreen from '../loading/loading';
 import NotFound from '../not-found-page/not-found-page';
 import { FavoriteButton } from '../../components/favorite-button/favorite-button';
+import { Offer } from '../../types';
 
 
 type OffersPageProps = {
@@ -36,6 +37,8 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
   const detailedOffer = useAppSelector(getDetailedOffer);
   const nearbyOffers = useAppSelector(getNearByOffers);
   const reviews = useAppSelector(getReviews);
+
+  const offersToShowInMap = nearbyOffers.slice(0, 3).concat(detailedOffer as unknown as Offer);
 
   const isOfferLoading = useAppSelector(getDetailedOfferLoadingStatus);
 
@@ -149,9 +152,9 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
             </div>
             <section className='offer__map map'>
               <Map
-                offers={nearbyOffers.slice(0, 3)}
+                offers={offersToShowInMap}
                 city={detailedOffer.city}
-                activeCard={activeCard}
+                activeCard={detailedOffer.id}
               />
             </section>
           </section>
