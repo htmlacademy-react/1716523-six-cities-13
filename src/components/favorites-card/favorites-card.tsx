@@ -1,5 +1,7 @@
+import { BookMarkButtonClasses, BookMarkPlaceCardSize } from '../../const/const';
 import { Offer } from '../../types';
 import { ratingCount } from '../../utils/utils';
+import { FavoriteButton } from '../favorite-button/favorite-button';
 
 type OfferType = {
   offer: Offer;
@@ -31,7 +33,13 @@ function FavoritesCard({offer}: OfferType): React.JSX.Element {
               /&nbsp;night
             </span>
           </div>
-          <button
+          <FavoriteButton
+            id={offer.id}
+            isFavorite={offer.isFavorite}
+            bookMarkClass={BookMarkButtonClasses.placeCard}
+            bookMarkSize={BookMarkPlaceCardSize}
+          />
+          {/* <button
             className="place-card__bookmark-button place-card__bookmark-button--active button"
             type="button"
           >
@@ -43,7 +51,7 @@ function FavoritesCard({offer}: OfferType): React.JSX.Element {
               <use xlinkHref="#icon-bookmark" />
             </svg>
             <span className="visually-hidden">In bookmarks</span>
-          </button>
+          </button> */}
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
