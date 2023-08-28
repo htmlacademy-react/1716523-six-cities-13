@@ -1,10 +1,10 @@
 import Logo from '../../components/logo/logo';
 import { useParams } from 'react-router-dom';
-import NavigationList from '../../components/navigation/navigation-list';
+import NavigationList from '../../components/navigation-list/navigation-list';
 import { Helmet } from 'react-helmet-async';
 import { BookMarkButtonClasses, BookMarkOfferSize, Titles } from '../../const/const';
 import CommentForm from '../../components/comment-form/comment-form';
-import OfferGallery from '../../components/detailed-offer-gallery/offer-gallery';
+import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
 import { OffersList } from '../../components/offers-list/offers-list';
@@ -16,6 +16,7 @@ import LoadingScreen from '../loading/loading';
 import NotFound from '../not-found-page/not-found-page';
 import { FavoriteButton } from '../../components/favorite-button/favorite-button';
 import { Offer } from '../../types';
+import { getRatingCount } from '../../utils/utils';
 
 
 type OffersPageProps = {
@@ -48,7 +49,7 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
       dispatch(fetchNearbyOffers(id));
       dispatch(fetchReviews(id));
     }
-  }, []);
+  }, [id ,dispatch]);
 
   if (isOfferLoading) {
     return <LoadingScreen />;
@@ -93,7 +94,7 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
                 </div>
                 <div className='offer__rating rating'>
                   <div className='offer__stars rating__stars'>
-                    <span style={{ width: '80%' }} />
+                    <span style={getRatingCount(detailedOffer.rating)} />
                     <span className='visually-hidden'>Rating</span>
                   </div>
                   <span className='offer__rating-value rating__value'>{detailedOffer.rating}</span>
@@ -108,7 +109,7 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
                   </li>
                 </ul>
                 <div className='offer__price'>
-                  <b className='offer__price-value'>{detailedOffer.price}</b>
+                  <b className='offer__price-value'>€{detailedOffer.price}</b>
                   <span className='offer__price-text'>&nbsp;night</span>
                 </div>
                 <div className='offer__inside'>

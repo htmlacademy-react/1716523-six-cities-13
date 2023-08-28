@@ -1,5 +1,5 @@
 import Logo from '../../components/logo/logo';
-import NavigationList from '../../components/navigation/navigation-list';
+import NavigationList from '../../components/navigation-list/navigation-list';
 import { Helmet } from 'react-helmet-async';
 import { Titles } from '../../const/const';
 import FavoritesList from '../../components/favorites-list/favorites-list';

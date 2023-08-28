@@ -1,5 +1,5 @@
 
-import NavigationList from '../../components/navigation/navigation-list';
+import NavigationList from '../../components/navigation-list/navigation-list';
 import { Helmet } from 'react-helmet-async';
 import { Titles } from '../../const/const';
 import { OffersList } from '../../components/offers-list/offers-list';
@@ -7,7 +7,7 @@ import Map from '../../components/map/map';
 import { memo, useCallback, useState } from 'react';
 import CitiesNav from '../../components/cities-nav/cities-nav';
 import { useAppSelector } from '../../hooks/use-app-dispatch';
-import SortForm from '../../components/sort/sort-form';
+import SortForm from '../../components/sort-form/sort-form';
 import { getAvailableOffers, getSortedOffers } from '../../utils/utils';
 import { Offer } from '../../types';
 import { getCity, getSortType } from '../../store/app-process/selectors';

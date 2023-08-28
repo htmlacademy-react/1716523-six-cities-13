@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react';
 import { useAppSelector } from '../../hooks/use-app-dispatch';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { AuthorizationStatus, MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT } from '../../const/const';
 
 interface Stars {
   [key: number]: string;
@@ -18,10 +19,7 @@ type CommentForm = {
   handleFormSubmit: (rating: number, review: string) => void;
 }
 
-const MIN_CHARACTERS_COUNT = 50;
-const MAX_CHARACTERS_COUNT = 100;
-
-const starsQuantity: number[] = [5, 4, 3, 2, 1];
+const starsValues: number[] = [5, 4, 3, 2, 1];
 
 function CommentForm({handleFormSubmit}: CommentForm): React.JSX.Element {
 
@@ -39,7 +37,9 @@ function CommentForm({handleFormSubmit}: CommentForm): React.JSX.Element {
   const buttonIsDisabled =
     review.length < MIN_CHARACTERS_COUNT
     || review.length > MAX_CHARACTERS_COUNT
-    || !+rating || authStatus !== 'AUTH';
+    || !+rating || authStatus !== AuthorizationStatus.Auth;
+
+  const commentFormIsDisabled = authStatus !== AuthorizationStatus.Auth;
 
 
   return (
@@ -48,7 +48,7 @@ function CommentForm({handleFormSubmit}: CommentForm): React.JSX.Element {
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        {starsQuantity.map((star: number) => (
+        {starsValues.map((star: number) => (
           <Fragment key={star}>
             <input
               className="form__rating-input visually-hidden"
@@ -58,6 +58,7 @@ function CommentForm({handleFormSubmit}: CommentForm): React.JSX.Element {
               type="radio"
               onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setRating(Number(evt.target.defaultValue))}
               checked={rating === star}
+              disabled={commentFormIsDisabled}
             />
             <label
               htmlFor={`${star}-stars`}
@@ -78,6 +79,7 @@ function CommentForm({handleFormSubmit}: CommentForm): React.JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={review}
         onChange={(evt) => setReview(evt.target.value)}
+        disabled={commentFormIsDisabled}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

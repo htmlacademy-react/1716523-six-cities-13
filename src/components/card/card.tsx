@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/types';
-import { ratingCount } from '../../utils/utils';
+import { getRatingCount } from '../../utils/utils';
 import { BookMarkButtonClasses, BookMarkPlaceCardSize, HOUSE_TYPE } from '../../const/const';
 import { FavoriteButton } from '../favorite-button/favorite-button';
 
@@ -59,14 +59,14 @@ function PlaceCard({offer, activeCard, setActiveCard, cardClass}: PlaceCardProps
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={ratingCount(offer.rating)} />
+            <span style={getRatingCount(offer.rating)} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">
+          <Link to={`/offers/${offer.id}`}>
             {offer.title}
-          </a>
+          </Link>
         </h2>
         <p className="place-card__type">{HOUSE_TYPE[offer.type]}</p>
       </div>

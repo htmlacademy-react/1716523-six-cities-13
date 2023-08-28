@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import { memo } from 'react';
 import { getAuthorizationStatus, getUserData } from '../../store/user-process/selectors';
 import { getFavorites } from '../../store/data-process/selectors';
+import { AuthorizationStatus } from '../../const/const';
 
 function NavigationList(): React.JSX.Element {
 
@@ -24,11 +25,12 @@ function NavigationList(): React.JSX.Element {
           <span className="header__user-name user__name">
             {email}
           </span>
-          <span className="header__favorite-count">{favoritesQuantity.length}</span>
+          {authStatus === AuthorizationStatus.Auth ?
+            <span className="header__favorite-count">{favoritesQuantity.length}</span> : ''}
         </Link>
       </li>
       <li className="header__nav-item">
-        {authStatus === 'AUTH' ?
+        {authStatus === AuthorizationStatus.Auth ?
           <Link
             className="header__nav-link"
             onClick={(evt) => {

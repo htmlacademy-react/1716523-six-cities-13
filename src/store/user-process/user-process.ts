@@ -28,9 +28,6 @@ export const userProcess = createSlice({
     setUserData: (state, action: PayloadAction<UserData>) => {
       state.userData = action.payload;
     },
-    // clearUserData: (state) => {
-    //   state.userData = initialState.userData;
-    // }
   },
   extraReducers(builder) {
     builder

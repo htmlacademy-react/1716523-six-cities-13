@@ -49,7 +49,7 @@ function Map({offers, city, activeCard}: MapProps): React.JSX.Element {
     return (() => {
       markers.clearLayers();
     });
-  }, [map, offers, activeCard]);
+  }, [map, offers, activeCard, city]);
 
   return (
     <div

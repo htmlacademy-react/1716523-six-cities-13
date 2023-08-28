@@ -5,7 +5,7 @@ import { changeCity } from '../../store/app-process/app-process';
 import { memo } from 'react';
 import { getCity } from '../../store/app-process/selectors';
 
-function CitiesNav(): React.JSX.Element {
+const CitiesNav = (): React.JSX.Element => {
 
   const dispatch = useAppDispatch();
 
@@ -26,6 +26,6 @@ function CitiesNav(): React.JSX.Element {
         ))}
     </ul>
   );
-}
+};
 
 export default memo(CitiesNav);

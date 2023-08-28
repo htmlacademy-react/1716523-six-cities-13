@@ -13,10 +13,6 @@ type OfferListProps = {
 
 export function OffersList({offers, activeCard, updateActiveCard, cardClass, offerListClass}: OfferListProps): React.JSX.Element {
 
-  const cities = new Set<string>();
-
-  offers.map((offer) => cities.add(offer.city.name));
-
   return (
     <div className={`${offerListClass} places__list tabs__content`}>
       {offers.map((offer) => (

@@ -3,6 +3,7 @@ import { NameSpace } from '../../const/const';
 
 
 const DEFAULT_CITY = 'Paris';
+const DEFAULT_SORT_TYPE = 'Popular';
 
 type AppProcess = {
   city: string;
@@ -12,7 +13,7 @@ type AppProcess = {
 
 const initialState: AppProcess = {
   city: DEFAULT_CITY,
-  sortType: 'Popular',
+  sortType: DEFAULT_SORT_TYPE,
   error: null,
 };
 

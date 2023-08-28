@@ -62,7 +62,9 @@ function MainApp(): React.JSX.Element {
           />
           <Route
             path={AppRoute.Login}
-            element={<LoginPage />}
+            element={
+              <LoginPage />
+            }
           />
           <Route
             path='*'
