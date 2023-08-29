@@ -6,8 +6,6 @@ type ReviewListProps = {
   reviews: Review[];
 }
 
-// const MAX_REVIEWS_COUNT = 10;
-
 function ReviewList({ reviews }: ReviewListProps) {
 
   let sortedReviews: Review[] = [];

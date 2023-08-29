@@ -11,24 +11,23 @@ type MapProps = {
   activeCard: string | null;
 };
 
+const defaultCustomIcon = new Icon({
+  iconUrl: URL_MARKER_DEFAULT,
+  iconSize: [30, 40],
+  iconAnchor: [20, 40]
+});
+
+const currentCustomIcon = new Icon({
+  iconUrl: URL_MARKER_CURRENT,
+  iconSize: [30, 40],
+  iconAnchor: [20, 40]
+});
+
 function Map({offers, city, activeCard}: MapProps): React.JSX.Element {
 
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-
-  const defaultCustomIcon = new Icon({
-    iconUrl: URL_MARKER_DEFAULT,
-    iconSize: [30, 40],
-    iconAnchor: [20, 40]
-  });
-
-  const currentCustomIcon = new Icon({
-    iconUrl: URL_MARKER_CURRENT,
-    iconSize: [30, 40],
-    iconAnchor: [20, 40]
-  });
-
 
   useEffect(() => {
 
@@ -60,4 +59,6 @@ function Map({offers, city, activeCard}: MapProps): React.JSX.Element {
   );
 }
 
-export default memo(Map);
+const MapMemo = memo(Map);
+
+export default MapMemo;

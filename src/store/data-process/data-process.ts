@@ -3,6 +3,10 @@ import { DetailedOffer, Offer, Review } from '../../types';
 import { NameSpace } from '../../const/const';
 import { changeFavoriteStatus, fetchDetailedOffer, fetchFavoritesAction, fetchNearbyOffers, fetchOffersAction, fetchReviews, postUserComment } from '../api-action';
 
+type CommentFormData = {
+  comment: string | undefined;
+  rating: number | undefined;
+}
 
 type DataProcess = {
   favorites: Offer[];
@@ -15,6 +19,7 @@ type DataProcess = {
   isNearbyOffersLoading: boolean;
   isReviewsLoading: boolean;
   isFavoritesLoading: boolean;
+  commentFormData: CommentFormData;
 }
 
 const initialState: DataProcess = {
@@ -28,6 +33,10 @@ const initialState: DataProcess = {
   isNearbyOffersLoading: false,
   isReviewsLoading: false,
   isFavoritesLoading: false,
+  commentFormData: {
+    comment: '',
+    rating: 0,
+  }
 };
 
 export const dataProcess = createSlice({
@@ -40,9 +49,20 @@ export const dataProcess = createSlice({
           offer.isFavorite = action.payload.isFavorite;
         }
       });
+      state.nearByOffers.forEach((offer) => {
+        if (offer.id === action.payload.id) {
+          offer.isFavorite = action.payload.isFavorite;
+        }
+      });
     },
     resetFavorites: (state) => {
       state.favorites = [];
+    },
+    setFormComment: (state, action: PayloadAction<string | undefined>) => {
+      state.commentFormData.comment = action.payload;
+    },
+    setFormRating: (state, action: PayloadAction<number | undefined>) => {
+      state.commentFormData.rating = action.payload;
     }
   },
   extraReducers(builder) {
@@ -87,11 +107,19 @@ export const dataProcess = createSlice({
       })
       .addCase(postUserComment.fulfilled, (state, action) => {
         state.reviews = [...state.reviews, action.payload];
+        state.commentFormData.comment = '';
+        state.commentFormData.rating = 0;
+      })
+      .addCase(postUserComment.rejected, (state, action) => {
+        state.commentFormData.comment = action.meta.arg.comment;
+        state.commentFormData.rating = action.meta.arg.rating;
       })
       .addCase(changeFavoriteStatus.fulfilled, (state, action) => {
-        state.detailedOffer = action.payload;
+        if (state.detailedOffer) {
+          state.detailedOffer.isFavorite = action.payload.isFavorite;
+        }
       });
   }
 });
 
-export const {toggleFavoriteStatus, resetFavorites} = dataProcess.actions;
+export const {toggleFavoriteStatus, resetFavorites, setFormComment, setFormRating} = dataProcess.actions;

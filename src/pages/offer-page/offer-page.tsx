@@ -1,14 +1,13 @@
 import Logo from '../../components/logo/logo';
 import { useParams } from 'react-router-dom';
-import NavigationList from '../../components/navigation-list/navigation-list';
+import NavigationListMemo from '../../components/navigation-list/navigation-list';
 import { Helmet } from 'react-helmet-async';
 import { BookMarkButtonClasses, BookMarkOfferSize, Titles } from '../../const/const';
 import CommentForm from '../../components/comment-form/comment-form';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
-import { OffersList } from '../../components/offers-list/offers-list';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { fetchDetailedOffer, fetchNearbyOffers, fetchReviews, postUserComment } from '../../store/api-action';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import { getDetailedOffer, getDetailedOfferLoadingStatus, getNearByOffers, getReviews } from '../../store/data-process/selectors';
@@ -17,6 +16,7 @@ import NotFound from '../not-found-page/not-found-page';
 import { FavoriteButton } from '../../components/favorite-button/favorite-button';
 import { Offer } from '../../types';
 import { getRatingCount } from '../../utils/utils';
+import PlaceCard from '../../components/card/card';
 
 
 type OffersPageProps = {
@@ -27,11 +27,10 @@ type OffersPageProps = {
 function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.Element {
 
   const dispatch = useAppDispatch();
-  const [activeCard, setActiveCard] = useState<string | null>(null);
 
   const { id } = useParams();
 
-  const handleFormSubmit = (rating: number, comment: string): void => {
+  const handleFormSubmit = (rating: number | undefined, comment: string | undefined): void => {
     dispatch(postUserComment({ comment, id, rating }));
   };
 
@@ -56,6 +55,7 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
   }
 
   if (detailedOffer) {
+
     return (
       <div className='page'>
         <Helmet>
@@ -68,7 +68,7 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
                 <Logo />
               </div>
               <nav className='header__nav'>
-                <NavigationList />
+                <NavigationListMemo />
               </nav>
             </div>
           </div>
@@ -162,13 +162,15 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
               <h2 className='near-places__title'>
                 Other places in the neighbourhood
               </h2>
-              <OffersList
-                offers={nearbyOffers.slice(0, 3)}
-                activeCard={activeCard}
-                updateActiveCard={setActiveCard}
-                cardClass={cardClass}
-                offerListClass={offerListClass}
-              />
+              <div className={`${offerListClass} places__list tabs__content`}>
+                {nearbyOffers.slice(0, 3).map((offer) => (
+                  <PlaceCard
+                    key={offer.id}
+                    offer={offer}
+                    cardClass={cardClass}
+                  />
+                ))}
+              </div>
             </section>
           </div>
         </main>

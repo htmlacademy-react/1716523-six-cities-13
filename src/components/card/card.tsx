@@ -8,26 +8,14 @@ import { FavoriteButton } from '../favorite-button/favorite-button';
 
 type PlaceCardProps ={
   offer: Offer;
-  activeCard: string | null;
-  setActiveCard: (id: string | null) => void;
   cardClass: string;
 }
 
-function PlaceCard({offer, activeCard, setActiveCard, cardClass}: PlaceCardProps) : React.JSX.Element {
+function PlaceCard({offer, cardClass}: PlaceCardProps) : React.JSX.Element {
 
-  const handleMouseEnter = () => {
-    setActiveCard(offer.id);
-  };
-
-  const handleMouseLeave = () => (
-    setActiveCard(null)
-  );
 
   return(
-    <article className={`${cardClass}__card place-card ${activeCard === offer.id ? 'place-card--active' : ''}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <article className={`${cardClass}__card place-card`}>
       {offer.isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>

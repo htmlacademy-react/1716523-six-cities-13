@@ -1,5 +1,5 @@
 import Logo from '../../components/logo/logo';
-import NavigationList from '../../components/navigation-list/navigation-list';
+import NavigationListMemo from '../../components/navigation-list/navigation-list';
 import { Helmet } from 'react-helmet-async';
 import { Titles } from '../../const/const';
 import FavoritesList from '../../components/favorites-list/favorites-list';
@@ -23,7 +23,7 @@ function FavoritesPage(): React.JSX.Element {
               <Logo />
             </div>
             <nav className="header__nav">
-              <NavigationList />
+              <NavigationListMemo />
             </nav>
           </div>
         </div>

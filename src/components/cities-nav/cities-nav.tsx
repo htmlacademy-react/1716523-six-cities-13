@@ -28,4 +28,6 @@ const CitiesNav = (): React.JSX.Element => {
   );
 };
 
-export default memo(CitiesNav);
+const CitiesNavMemo = memo(CitiesNav);
+
+export default CitiesNavMemo;

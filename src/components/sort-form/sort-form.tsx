@@ -50,4 +50,6 @@ function SortForm(): React.JSX.Element {
   );
 }
 
-export default memo(SortForm);
+const SortFormMemo = memo(SortForm);
+
+export default SortFormMemo;

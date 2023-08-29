@@ -52,4 +52,6 @@ function NavigationList(): React.JSX.Element {
   );
 }
 
-export default memo(NavigationList);
+const NavigationListMemo = memo(NavigationList);
+
+export default NavigationListMemo;

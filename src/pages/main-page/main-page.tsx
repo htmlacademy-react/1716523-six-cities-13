@@ -1,13 +1,13 @@
 
-import NavigationList from '../../components/navigation-list/navigation-list';
+import NavigationListMemo from '../../components/navigation-list/navigation-list';
 import { Helmet } from 'react-helmet-async';
 import { Titles } from '../../const/const';
 import { OffersList } from '../../components/offers-list/offers-list';
-import Map from '../../components/map/map';
+import MemoMap from '../../components/map/map';
 import { memo, useCallback, useState } from 'react';
-import CitiesNav from '../../components/cities-nav/cities-nav';
+import CitiesNavMemo from '../../components/cities-nav/cities-nav';
 import { useAppSelector } from '../../hooks/use-app-dispatch';
-import SortForm from '../../components/sort-form/sort-form';
+import SortFormMemo from '../../components/sort-form/sort-form';
 import { getAvailableOffers, getSortedOffers } from '../../utils/utils';
 import { Offer } from '../../types';
 import { getCity, getSortType } from '../../store/app-process/selectors';
@@ -56,7 +56,7 @@ function MainPage({ offers, cardClass, offerListClass}: MainPageProps): React.JS
               </a>
             </div>
             <nav className="header__nav">
-              <NavigationList />
+              <NavigationListMemo />
             </nav>
           </div>
         </div>
@@ -65,7 +65,7 @@ function MainPage({ offers, cardClass, offerListClass}: MainPageProps): React.JS
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesNav />
+            <CitiesNavMemo />
           </section>
         </div>
         {availableOffers.length ?
@@ -74,10 +74,9 @@ function MainPage({ offers, cardClass, offerListClass}: MainPageProps): React.JS
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{availableOffers.length} places to stay in {currentCity}</b>
-                <SortForm />
+                <SortFormMemo />
                 <OffersList
                   offers={sortedOffers}
-                  activeCard={activeCard}
                   updateActiveCard={updateActiveCard}
                   cardClass={cardClass}
                   offerListClass={offerListClass}
@@ -85,7 +84,7 @@ function MainPage({ offers, cardClass, offerListClass}: MainPageProps): React.JS
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map
+                  <MemoMap
                     offers={availableOffers}
                     city={city}
                     activeCard={activeCard}
@@ -100,4 +99,6 @@ function MainPage({ offers, cardClass, offerListClass}: MainPageProps): React.JS
   );
 }
 
-export default memo(MainPage);
+const MainPageMemo = memo(MainPage);
+
+export default MainPageMemo;
