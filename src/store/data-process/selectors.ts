@@ -31,3 +31,10 @@ export const getReviewsLoadingStatus = (state: State): boolean =>
 
 export const getNearbyOffersLoadingStatus = (state: State): boolean =>
   state[NameSpace.Data].isNearbyOffersLoading;
+
+export const getFormComment = (state: State): string | undefined =>
+  state[NameSpace.Data].commentFormData.comment;
+
+export const getFormRating = (state: State): number | undefined =>
+  state[NameSpace.Data].commentFormData.rating;
+

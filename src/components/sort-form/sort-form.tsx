@@ -1,5 +1,5 @@
 import { memo, useRef } from 'react';
-import { SORT } from '../../const/const';
+import { SORT_TYPES } from '../../const/const';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import { sortOffers } from '../../store/app-process/app-process';
 import { getSortType } from '../../store/app-process/selectors';
@@ -35,7 +35,7 @@ function SortForm(): React.JSX.Element {
         </svg>
       </span>
       <ul className="places__options places__options--custom " ref={sortRef}>
-        {SORT.map((sortType: string) => (
+        {SORT_TYPES.map((sortType: string) => (
           <li key={sortType}
             className={`places__option ${currentSortType === sortType ? 'places__option--active' : ''}`}
             tabIndex={0}
@@ -50,4 +50,6 @@ function SortForm(): React.JSX.Element {
   );
 }
 
-export default memo(SortForm);
+const SortFormMemo = memo(SortForm);
+
+export default SortFormMemo;

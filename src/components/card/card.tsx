@@ -1,33 +1,21 @@
 
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/types';
-import { ratingCount } from '../../utils/utils';
+import { getRatingCount } from '../../utils/utils';
 import { BookMarkButtonClasses, BookMarkPlaceCardSize, HOUSE_TYPE } from '../../const/const';
 import { FavoriteButton } from '../favorite-button/favorite-button';
 
 
 type PlaceCardProps ={
   offer: Offer;
-  activeCard: string | null;
-  setActiveCard: (id: string | null) => void;
   cardClass: string;
 }
 
-function PlaceCard({offer, activeCard, setActiveCard, cardClass}: PlaceCardProps) : React.JSX.Element {
+function PlaceCard({offer, cardClass}: PlaceCardProps) : React.JSX.Element {
 
-  const handleMouseEnter = () => {
-    setActiveCard(offer.id);
-  };
-
-  const handleMouseLeave = () => (
-    setActiveCard(null)
-  );
 
   return(
-    <article className={`${cardClass}__card place-card ${activeCard === offer.id ? 'place-card--active' : ''}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <article className={`${cardClass}__card place-card`}>
       {offer.isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
@@ -59,14 +47,14 @@ function PlaceCard({offer, activeCard, setActiveCard, cardClass}: PlaceCardProps
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={ratingCount(offer.rating)} />
+            <span style={getRatingCount(offer.rating)} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">
+          <Link to={`/offers/${offer.id}`}>
             {offer.title}
-          </a>
+          </Link>
         </h2>
         <p className="place-card__type">{HOUSE_TYPE[offer.type]}</p>
       </div>

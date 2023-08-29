@@ -1,14 +1,13 @@
 import Logo from '../../components/logo/logo';
 import { useParams } from 'react-router-dom';
-import NavigationList from '../../components/navigation/navigation-list';
+import NavigationListMemo from '../../components/navigation-list/navigation-list';
 import { Helmet } from 'react-helmet-async';
 import { BookMarkButtonClasses, BookMarkOfferSize, Titles } from '../../const/const';
 import CommentForm from '../../components/comment-form/comment-form';
-import OfferGallery from '../../components/detailed-offer-gallery/offer-gallery';
+import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
-import { OffersList } from '../../components/offers-list/offers-list';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { fetchDetailedOffer, fetchNearbyOffers, fetchReviews, postUserComment } from '../../store/api-action';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import { getDetailedOffer, getDetailedOfferLoadingStatus, getNearByOffers, getReviews } from '../../store/data-process/selectors';
@@ -16,6 +15,8 @@ import LoadingScreen from '../loading/loading';
 import NotFound from '../not-found-page/not-found-page';
 import { FavoriteButton } from '../../components/favorite-button/favorite-button';
 import { Offer } from '../../types';
+import { getRatingCount } from '../../utils/utils';
+import PlaceCard from '../../components/card/card';
 
 
 type OffersPageProps = {
@@ -26,11 +27,10 @@ type OffersPageProps = {
 function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.Element {
 
   const dispatch = useAppDispatch();
-  const [activeCard, setActiveCard] = useState<string | null>(null);
 
   const { id } = useParams();
 
-  const handleFormSubmit = (rating: number, comment: string): void => {
+  const handleFormSubmit = (rating: number | undefined, comment: string | undefined): void => {
     dispatch(postUserComment({ comment, id, rating }));
   };
 
@@ -48,13 +48,14 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
       dispatch(fetchNearbyOffers(id));
       dispatch(fetchReviews(id));
     }
-  }, []);
+  }, [id ,dispatch]);
 
   if (isOfferLoading) {
     return <LoadingScreen />;
   }
 
   if (detailedOffer) {
+
     return (
       <div className='page'>
         <Helmet>
@@ -67,7 +68,7 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
                 <Logo />
               </div>
               <nav className='header__nav'>
-                <NavigationList />
+                <NavigationListMemo />
               </nav>
             </div>
           </div>
@@ -93,7 +94,7 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
                 </div>
                 <div className='offer__rating rating'>
                   <div className='offer__stars rating__stars'>
-                    <span style={{ width: '80%' }} />
+                    <span style={getRatingCount(detailedOffer.rating)} />
                     <span className='visually-hidden'>Rating</span>
                   </div>
                   <span className='offer__rating-value rating__value'>{detailedOffer.rating}</span>
@@ -108,7 +109,7 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
                   </li>
                 </ul>
                 <div className='offer__price'>
-                  <b className='offer__price-value'>{detailedOffer.price}</b>
+                  <b className='offer__price-value'>€{detailedOffer.price}</b>
                   <span className='offer__price-text'>&nbsp;night</span>
                 </div>
                 <div className='offer__inside'>
@@ -161,13 +162,15 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
               <h2 className='near-places__title'>
                 Other places in the neighbourhood
               </h2>
-              <OffersList
-                offers={nearbyOffers.slice(0, 3)}
-                activeCard={activeCard}
-                updateActiveCard={setActiveCard}
-                cardClass={cardClass}
-                offerListClass={offerListClass}
-              />
+              <div className={`${offerListClass} places__list tabs__content`}>
+                {nearbyOffers.slice(0, 3).map((offer) => (
+                  <PlaceCard
+                    key={offer.id}
+                    offer={offer}
+                    cardClass={cardClass}
+                  />
+                ))}
+              </div>
             </section>
           </div>
         </main>

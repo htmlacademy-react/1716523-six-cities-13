@@ -1,6 +1,9 @@
-import { Fragment, useState } from 'react';
-import { useAppSelector } from '../../hooks/use-app-dispatch';
+import { Fragment } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { AuthorizationStatus, MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT } from '../../const/const';
+import { setFormComment, setFormRating } from '../../store/data-process/data-process';
+import { getFormComment, getFormRating } from '../../store/data-process/selectors';
 
 interface Stars {
   [key: number]: string;
@@ -15,40 +18,53 @@ const starsTitle: Stars = {
 };
 
 type CommentForm = {
-  handleFormSubmit: (rating: number, review: string) => void;
+  handleFormSubmit: (rating: number | undefined, review: string | undefined) => void;
 }
 
-const MIN_CHARACTERS_COUNT = 50;
-const MAX_CHARACTERS_COUNT = 100;
-
-const starsQuantity: number[] = [5, 4, 3, 2, 1];
+const starsValues: number[] = [5, 4, 3, 2, 1];
 
 function CommentForm({handleFormSubmit}: CommentForm): React.JSX.Element {
 
-  const [rating, setRating] = useState(0);
-  const [review, setReview] = useState('');
-
   const authStatus = useAppSelector(getAuthorizationStatus);
 
-  const clearForm = () => {
-    handleFormSubmit(rating, review);
-    setReview('');
-    setRating(0);
+  const dispatch = useAppDispatch();
+
+  const setFormRatingData = (data: number) => {
+    dispatch(setFormRating(data));
   };
 
-  const buttonIsDisabled =
-    review.length < MIN_CHARACTERS_COUNT
-    || review.length > MAX_CHARACTERS_COUNT
-    || !+rating || authStatus !== 'AUTH';
+  const setFormCommentData = (data: string) => {
+    dispatch(setFormComment(data));
+  };
+
+  const review = useAppSelector(getFormComment);
+
+  const rating = useAppSelector(getFormRating);
+
+  const submitFormHandler = () => {
+    handleFormSubmit(rating, review);
+  };
+
+  const buttonIsDisabled = () => {
+    if (review && rating) {
+      return review.length < MIN_CHARACTERS_COUNT
+      || review.length > MAX_CHARACTERS_COUNT
+      || !+rating || authStatus !== AuthorizationStatus.Auth;
+    } else {
+      return true;
+    }
+  };
+
+  const commentFormIsDisabled = authStatus !== AuthorizationStatus.Auth;
 
 
   return (
-    <div className="reviews__form form">
+    <div className="reviews__form form" >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        {starsQuantity.map((star: number) => (
+        {starsValues.map((star: number) => (
           <Fragment key={star}>
             <input
               className="form__rating-input visually-hidden"
@@ -56,8 +72,9 @@ function CommentForm({handleFormSubmit}: CommentForm): React.JSX.Element {
               defaultValue={star}
               id={`${star}-stars`}
               type="radio"
-              onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setRating(Number(evt.target.defaultValue))}
+              onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setFormRatingData(Number(evt.target.defaultValue))}
               checked={rating === star}
+              disabled={commentFormIsDisabled}
             />
             <label
               htmlFor={`${star}-stars`}
@@ -77,7 +94,8 @@ function CommentForm({handleFormSubmit}: CommentForm): React.JSX.Element {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={review}
-        onChange={(evt) => setReview(evt.target.value)}
+        onChange={(evt) => setFormCommentData(evt.target.value)}
+        disabled={commentFormIsDisabled}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -88,8 +106,8 @@ function CommentForm({handleFormSubmit}: CommentForm): React.JSX.Element {
         </p>
         <button
           className="reviews__submit form__submit button"
-          onClick={clearForm}
-          disabled={buttonIsDisabled}
+          onClick={submitFormHandler}
+          disabled={buttonIsDisabled()}
         >
           Submit
         </button>

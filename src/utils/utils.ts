@@ -1,22 +1,15 @@
 import dayjs from 'dayjs';
 
-import { Offer, RatingObj } from '../types/types';
+import { Offer, RatingObj, Review } from '../types/types';
+import { MAX_REVIEWS_COUNT } from '../const/const';
 
-export function ratingCount(rating: number):RatingObj {
-  return {
-    width: `${(Math.round(rating) * 20).toString()}%`
-  };
-}
+export const getRatingCount = (rating: number):RatingObj => ({ width: `${(Math.round(rating) * 20).toString()}%` });
 
-export function dateFomat(date: string) {
-  return dayjs(date).format('MMMM YYYY');
-}
+export const getFormattedDate = (date: string) => dayjs(date).format('MMMM YYYY');
 
-export function getAvailableOffers(allOffers: Offer[], currentCity: string) {
-  return allOffers.filter((offer) => offer.city.name === currentCity);
-}
+export const getAvailableOffers = (allOffers: Offer[], currentCity: string) => allOffers.filter((offer) => offer.city.name === currentCity);
 
-export function getSortedOffers(availableOffers: Offer[], sortType: string) {
+export const getSortedOffers = (availableOffers: Offer[], sortType: string) => {
   switch(sortType) {
     case 'Popular':
       return availableOffers;
@@ -29,4 +22,8 @@ export function getSortedOffers(availableOffers: Offer[], sortType: string) {
     default:
       return availableOffers;
   }
-}
+};
+
+export const getSortedReviews = (allReviews: Review[]): Review[] => (
+  [...allReviews].sort((a: Review, b: Review) => new Date(b.date).valueOf() - new Date(a.date).valueOf()).slice(0, MAX_REVIEWS_COUNT)
+);

@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import { changeFavoriteStatus, fetchFavoritesAction } from '../../store/api-action';
-import { AppRoute } from '../../const/const';
+import { AppRoute, AuthorizationStatus } from '../../const/const';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 type FavoriteButtonProps = {
@@ -24,7 +24,7 @@ export const FavoriteButton = ({id, isFavorite, bookMarkClass, bookMarkSize}: Fa
   const dispatch = useAppDispatch();
 
   const handleFavoriteButtonClick = () => {
-    if (authorizationStatus !== 'AUTH') {
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(AppRoute.Login);
     } else {
       dispatch(changeFavoriteStatus({id, isFavorite: !isFavorite}));

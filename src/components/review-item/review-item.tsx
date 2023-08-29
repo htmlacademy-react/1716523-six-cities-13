@@ -1,5 +1,5 @@
 import { Review } from '../../types';
-import { dateFomat, ratingCount } from '../../utils/utils';
+import { getFormattedDate, getRatingCount } from '../../utils/utils';
 
 type ReviewItemProps = {
   review: Review;
@@ -23,13 +23,13 @@ function ReviewItem({review}: ReviewItemProps) {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={ratingCount(review.rating)} />
+            <span style={getRatingCount(review.rating)} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <p className="reviews__text">{review.comment}</p>
         <time className="reviews__time" dateTime={review.date}>
-          {dateFomat(review.date)}
+          {getFormattedDate(review.date)}
         </time>
       </div>
     </li>

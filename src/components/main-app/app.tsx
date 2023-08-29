@@ -1,4 +1,4 @@
-import MainPage from '../../pages/main-page/main-page';
+import MainPageMemo from '../../pages/main-page/main-page';
 import OffersPage from '../../pages/offer-page/offer-page';
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, CARD_CLASS, OFFERS_LIST_CLASS } from '../../const/const';
@@ -34,7 +34,7 @@ function MainApp(): React.JSX.Element {
           <Route
             path={AppRoute.Root}
             element={
-              <MainPage
+              <MainPageMemo
                 offers={offers}
                 cardClass={CARD_CLASS.main}
                 offerListClass={OFFERS_LIST_CLASS.mainPage}
@@ -62,7 +62,9 @@ function MainApp(): React.JSX.Element {
           />
           <Route
             path={AppRoute.Login}
-            element={<LoginPage />}
+            element={
+              <LoginPage />
+            }
           />
           <Route
             path='*'
