@@ -40,7 +40,7 @@ export type RatingObj = {
 export type DetailedOffer = {
   id: string;
   title: string;
-  type: string;
+  type: OfferHouseType;
   price: number;
   city: City;
   location: LocationType;

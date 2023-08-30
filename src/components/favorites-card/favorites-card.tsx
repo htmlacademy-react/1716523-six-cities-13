@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { BookMarkButtonClasses, BookMarkPlaceCardSize } from '../../const/const';
+import { BookMarkButtonClasses, BookMarkPlaceCardSize, HOUSE_TYPE } from '../../const/const';
 import { Offer } from '../../types';
 import { getRatingCount } from '../../utils/utils';
 import { FavoriteButton } from '../favorite-button/favorite-button';
@@ -50,7 +50,7 @@ function FavoritesCard({offer}: OfferType): React.JSX.Element {
         <h2 className="place-card__name">
           <Link to={`/offers/${offer.id}`}>{offer.title}</ Link>
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">{HOUSE_TYPE[offer.type]}</p>
       </div>
     </article>
   );

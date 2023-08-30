@@ -2,7 +2,7 @@ import Logo from '../../components/logo/logo';
 import { useParams } from 'react-router-dom';
 import NavigationListMemo from '../../components/navigation-list/navigation-list';
 import { Helmet } from 'react-helmet-async';
-import { BookMarkButtonClasses, BookMarkOfferSize, Titles } from '../../const/const';
+import { AuthorizationStatus, BookMarkButtonClasses, BookMarkOfferSize, HOUSE_TYPE, Titles } from '../../const/const';
 import CommentForm from '../../components/comment-form/comment-form';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import ReviewList from '../../components/review-list/review-list';
@@ -17,6 +17,7 @@ import { FavoriteButton } from '../../components/favorite-button/favorite-button
 import { Offer } from '../../types';
 import { getRatingCount } from '../../utils/utils';
 import PlaceCard from '../../components/card/card';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 
 type OffersPageProps = {
@@ -41,6 +42,8 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
   const offersToShowInMap = nearbyOffers.slice(0, 3).concat(detailedOffer as unknown as Offer);
 
   const isOfferLoading = useAppSelector(getDetailedOfferLoadingStatus);
+
+  const authStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
     if (id) {
@@ -100,7 +103,7 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
                   <span className='offer__rating-value rating__value'>{detailedOffer.rating}</span>
                 </div>
                 <ul className='offer__features'>
-                  <li className='offer__feature offer__feature--entire'>{detailedOffer.type}</li>
+                  <li className='offer__feature offer__feature--entire'>{HOUSE_TYPE[detailedOffer.type]}</li>
                   <li className='offer__feature offer__feature--bedrooms'>
                     {detailedOffer.bedrooms} Bedrooms
                   </li>
@@ -143,9 +146,8 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
                 <section className='offer__reviews reviews'>
 
                   <ReviewList reviews={reviews} />
-                  <CommentForm
-                    handleFormSubmit={handleFormSubmit}
-                  />
+                  {authStatus === AuthorizationStatus.Auth ?
+                    <CommentForm handleFormSubmit={handleFormSubmit}/> : ''}
                 </section>
               </div>
             </div>
