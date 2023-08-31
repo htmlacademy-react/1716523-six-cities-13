@@ -2,7 +2,7 @@ import Logo from '../../components/logo/logo';
 import { useParams } from 'react-router-dom';
 import NavigationListMemo from '../../components/navigation-list/navigation-list';
 import { Helmet } from 'react-helmet-async';
-import { AuthorizationStatus, BookMarkButtonClasses, BookMarkOfferSize, HOUSE_TYPE, Titles } from '../../const/const';
+import { AuthorizationStatus, BookMarkButtonClasses, BookMarkOfferSize, HOUSE_TYPE, NEARBY_OFFERS_TO_SHOW_LIMIT, PHOTOES_IN_OFFER_LIMIT, Titles } from '../../const/const';
 import CommentForm from '../../components/comment-form/comment-form';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import ReviewList from '../../components/review-list/review-list';
@@ -31,7 +31,7 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
 
   const { id } = useParams();
 
-  const handleFormSubmit = (rating: number | undefined, comment: string | undefined): void => {
+  const submitFormHandler = (rating: number | undefined, comment: string | undefined): void => {
     dispatch(postUserComment({ comment, id, rating }));
   };
 
@@ -79,7 +79,7 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
         <main className='page__main page__main--offer'>
           <section className='offer'>
             <div className='offer__gallery-container container'>
-              {detailedOffer && <OfferGallery imagesUrl={detailedOffer.images} />}
+              {detailedOffer && <OfferGallery imageUrls={detailedOffer.images.slice(0, PHOTOES_IN_OFFER_LIMIT)} />}
             </div>
             <div className='offer__container container'>
               <div className='offer__wrapper'>
@@ -147,7 +147,7 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
 
                   <ReviewList reviews={reviews} />
                   {authStatus === AuthorizationStatus.Auth ?
-                    <CommentForm handleFormSubmit={handleFormSubmit}/> : ''}
+                    <CommentForm submitFormHandler={submitFormHandler}/> : ''}
                 </section>
               </div>
             </div>
@@ -165,7 +165,7 @@ function OffersPage({ cardClass, offerListClass }: OffersPageProps): React.JSX.E
                 Other places in the neighbourhood
               </h2>
               <div className={`${offerListClass} places__list tabs__content`}>
-                {nearbyOffers.slice(0, 3).map((offer) => (
+                {nearbyOffers.slice(0, NEARBY_OFFERS_TO_SHOW_LIMIT).map((offer) => (
                   <PlaceCard
                     key={offer.id}
                     offer={offer}

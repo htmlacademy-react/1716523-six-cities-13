@@ -22,7 +22,7 @@ function PlaceCard({offer, cardClass}: PlaceCardProps) : React.JSX.Element {
         </div>}
 
       <div className={`${cardClass}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`/offers/${offer.id}`}>
+        <Link to={`/offer/${offer.id}`}>
           <img
             className="place-card__image"
             src={offer.previewImage}
@@ -52,7 +52,7 @@ function PlaceCard({offer, cardClass}: PlaceCardProps) : React.JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offers/${offer.id}`}>
+          <Link to={`/offer/${offer.id}`}>
             {offer.title}
           </Link>
         </h2>

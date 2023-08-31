@@ -20,6 +20,7 @@ type DataProcess = {
   isReviewsLoading: boolean;
   isFavoritesLoading: boolean;
   commentFormData: CommentFormData;
+  isCommentPosting: boolean;
 }
 
 const initialState: DataProcess = {
@@ -36,7 +37,8 @@ const initialState: DataProcess = {
   commentFormData: {
     comment: '',
     rating: 0,
-  }
+  },
+  isCommentPosting: false,
 };
 
 export const dataProcess = createSlice({
@@ -105,14 +107,19 @@ export const dataProcess = createSlice({
         state.reviews = action.payload;
         state.isReviewsLoading = false;
       })
+      .addCase(postUserComment.pending, (state) => {
+        state.isCommentPosting = true;
+      })
       .addCase(postUserComment.fulfilled, (state, action) => {
         state.reviews = [...state.reviews, action.payload];
         state.commentFormData.comment = '';
         state.commentFormData.rating = 0;
+        state.isCommentPosting = false;
       })
       .addCase(postUserComment.rejected, (state, action) => {
         state.commentFormData.comment = action.meta.arg.comment;
         state.commentFormData.rating = action.meta.arg.rating;
+        state.isCommentPosting = false;
       })
       .addCase(changeFavoriteStatus.fulfilled, (state, action) => {
         if (state.detailedOffer) {

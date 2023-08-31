@@ -38,3 +38,6 @@ export const getFormComment = (state: State): string | undefined =>
 export const getFormRating = (state: State): number | undefined =>
   state[NameSpace.Data].commentFormData.rating;
 
+export const getCommentPostingStatus = (state: State): boolean =>
+  state[NameSpace.Data].isCommentPosting;
+
