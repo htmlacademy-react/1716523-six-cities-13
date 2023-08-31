@@ -37,6 +37,7 @@ export const changeFavoriteStatus = createAsyncThunk<DetailedOffer, HandleButton
   async ({id, isFavorite}, {dispatch, extra: api}) => {
     const {data} = await api.post<DetailedOffer>(`${ApiRoute.Favorites}/${id}/${isFavorite ? FavoriteStatus.AddToFavorite : FavoriteStatus.DeleteFromFavorite}`);
     dispatch(toggleFavoriteStatus({id, isFavorite}));
+    dispatch(fetchFavoritesAction());
     return data;
   }
 );

@@ -23,6 +23,9 @@ export const getFavorites = (state: State): Offer[] =>
 export const getFavoritesLoadingStatus = (state: State): boolean =>
   state[NameSpace.Data].isFavoritesLoading;
 
+export const getFavoritesPostingStatus = (state: State): boolean =>
+  state[NameSpace.Data].isFavoritesPosting;
+
 export const getDetailedOfferLoadingStatus = (state: State): boolean =>
   state[NameSpace.Data].isDetailedOfferLoading;
 

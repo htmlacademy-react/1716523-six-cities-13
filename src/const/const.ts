@@ -91,3 +91,4 @@ export const MAX_REVIEWS_COUNT = 10;
 export const PHOTOES_IN_OFFER_LIMIT = 6;
 
 export const NEARBY_OFFERS_TO_SHOW_LIMIT = 3;
+

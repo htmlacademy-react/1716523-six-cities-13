@@ -19,6 +19,7 @@ type DataProcess = {
   isNearbyOffersLoading: boolean;
   isReviewsLoading: boolean;
   isFavoritesLoading: boolean;
+  isFavoritesPosting: boolean;
   commentFormData: CommentFormData;
   isCommentPosting: boolean;
 }
@@ -34,6 +35,7 @@ const initialState: DataProcess = {
   isNearbyOffersLoading: false,
   isReviewsLoading: false,
   isFavoritesLoading: false,
+  isFavoritesPosting: false,
   commentFormData: {
     comment: '',
     rating: 0,
@@ -125,6 +127,13 @@ export const dataProcess = createSlice({
         if (state.detailedOffer) {
           state.detailedOffer.isFavorite = action.payload.isFavorite;
         }
+        state.isFavoritesPosting = false;
+      })
+      .addCase(changeFavoriteStatus.pending, (state) => {
+        state.isFavoritesPosting = true;
+      })
+      .addCase(changeFavoriteStatus.rejected, (state) => {
+        state.isFavoritesPosting = false;
       });
   }
 });
