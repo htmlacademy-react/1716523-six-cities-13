@@ -12,12 +12,12 @@ function SortForm(): React.JSX.Element {
 
   const sortRef = useRef<HTMLUListElement | null>(null);
 
-  const onSortOffers = (sortType: string) => {
+  const handleOffersSort = (sortType: string) => {
     dispatch(sortOffers(sortType));
     sortRef?.current?.classList.remove('places__options--opened');
   };
 
-  const onToggleSort = ({ target }: React.MouseEvent<HTMLElement>) => {
+  const handleSelectSortToggle = ({ target }: React.MouseEvent<HTMLElement>) => {
     if ((target as HTMLElement).className === 'places__sorting-type') {
       sortRef?.current?.classList.toggle('places__options--opened');
     }
@@ -28,7 +28,7 @@ function SortForm(): React.JSX.Element {
 
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex={0} onClick={(evt) => onToggleSort(evt)}>
+      <span className="places__sorting-type" tabIndex={0} onClick={(evt) => handleSelectSortToggle(evt)}>
         {currentSortType}
         <svg className="places__sorting-arrow" width={7} height={4}>
           <use xlinkHref="#icon-arrow-select" />
@@ -39,7 +39,7 @@ function SortForm(): React.JSX.Element {
           <li key={sortType}
             className={`places__option ${currentSortType === sortType ? 'places__option--active' : ''}`}
             tabIndex={0}
-            onClick={() => onSortOffers(sortType)}
+            onClick={() => handleOffersSort(sortType)}
           >
             {sortType}
           </li>)

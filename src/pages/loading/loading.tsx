@@ -1,6 +1,7 @@
 import { CSSProperties } from 'react';
 import { ClipLoader } from 'react-spinners';
 
+
 function LoadingScreen(): JSX.Element {
 
   const override: CSSProperties = {
@@ -8,6 +9,7 @@ function LoadingScreen(): JSX.Element {
     margin: '0 auto',
     borderColor: 'blue',
   };
+
 
   const loading = true;
   const color = '#ffffff';

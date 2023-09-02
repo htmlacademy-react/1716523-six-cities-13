@@ -1,7 +1,7 @@
 
 export enum AppRoute {
   Root = '/',
-  Offers = '/offers/:id',
+  Offers = '/offer/:id',
   Favorites = '/favorites',
   Login = '/login',
 }
@@ -79,9 +79,16 @@ export enum BookMarkOfferSize {
   height = 33,
 }
 
-export const MIN_CHARACTERS_COUNT = 50;
-export const MAX_CHARACTERS_COUNT = 300;
+export enum FormCharactersLimit {
+  MinCharactersCount = 50,
+  MaxCharactersCount = 300,
+}
 
 export const TIMEOUT_SHOW_ERROR = 2000;
 
 export const MAX_REVIEWS_COUNT = 10;
+
+export const PHOTOES_IN_OFFER_LIMIT = 6;
+
+export const NEARBY_OFFERS_TO_SHOW_LIMIT = 3;
+

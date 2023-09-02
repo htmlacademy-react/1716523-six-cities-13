@@ -16,7 +16,7 @@ function FavoritesCard({offer}: OfferType): React.JSX.Element {
         <span>Premium</span>
       </div>}
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <Link to={`/offers/${offer.id}`}>
+        <Link to={`/offer/${offer.id}`}>
           <img
             className="place-card__image"
             src={offer.previewImage}

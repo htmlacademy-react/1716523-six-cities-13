@@ -1,9 +1,9 @@
 import { Fragment } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { AuthorizationStatus, MAX_CHARACTERS_COUNT, MIN_CHARACTERS_COUNT } from '../../const/const';
+import { AuthorizationStatus, FormCharactersLimit} from '../../const/const';
 import { setFormComment, setFormRating } from '../../store/data-process/data-process';
-import { getFormComment, getFormRating } from '../../store/data-process/selectors';
+import { getCommentPostingStatus, getFormComment, getFormRating } from '../../store/data-process/selectors';
 
 interface Stars {
   [key: number]: string;
@@ -18,14 +18,16 @@ const starsTitle: Stars = {
 };
 
 type CommentForm = {
-  handleFormSubmit: (rating: number | undefined, review: string | undefined) => void;
+  submitFormHandler: (rating: number | undefined, review: string | undefined) => void;
 }
 
 const starsValues: number[] = [5, 4, 3, 2, 1];
 
-function CommentForm({handleFormSubmit}: CommentForm): React.JSX.Element {
+function CommentForm({submitFormHandler}: CommentForm): React.JSX.Element {
 
   const authStatus = useAppSelector(getAuthorizationStatus);
+
+  const commentPostedStatus = useAppSelector(getCommentPostingStatus);
 
   const dispatch = useAppDispatch();
 
@@ -41,21 +43,21 @@ function CommentForm({handleFormSubmit}: CommentForm): React.JSX.Element {
 
   const rating = useAppSelector(getFormRating);
 
-  const submitFormHandler = () => {
-    handleFormSubmit(rating, review);
+  const handleFormSubmit = () => {
+    submitFormHandler(rating, review);
   };
 
   const buttonIsDisabled = () => {
     if (review && rating) {
-      return review.length < MIN_CHARACTERS_COUNT
-      || review.length > MAX_CHARACTERS_COUNT
-      || !+rating || authStatus !== AuthorizationStatus.Auth;
+      return review.length < FormCharactersLimit.MinCharactersCount
+      || review.length > FormCharactersLimit.MaxCharactersCount
+      || !+rating || authStatus !== AuthorizationStatus.Auth || commentPostedStatus;
     } else {
       return true;
     }
   };
 
-  const commentFormIsDisabled = authStatus !== AuthorizationStatus.Auth;
+  const commentFormIsDisabled = commentPostedStatus === true;
 
 
   return (
@@ -106,7 +108,7 @@ function CommentForm({handleFormSubmit}: CommentForm): React.JSX.Element {
         </p>
         <button
           className="reviews__submit form__submit button"
-          onClick={submitFormHandler}
+          onClick={handleFormSubmit}
           disabled={buttonIsDisabled()}
         >
           Submit

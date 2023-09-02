@@ -1,13 +1,13 @@
 
 
 type OfferGalleryPrors = {
-  imagesUrl: string[];
+  imageUrls: string[];
 }
 
-function OfferGallery({imagesUrl}: OfferGalleryPrors) {
+function OfferGallery({imageUrls}: OfferGalleryPrors) {
   return (
     <div className="offer__gallery">
-      {imagesUrl.map((imageUrl) =>
+      {imageUrls.map((imageUrl) =>
         (
           <div key={imageUrl} className="offer__image-wrapper">
             <img

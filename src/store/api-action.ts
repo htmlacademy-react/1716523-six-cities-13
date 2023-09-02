@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, AuthData, DetailedOffer, HandleButtonFavoriteClickProps, Offer, Review, State, UserData } from '../types';
 import { AxiosInstance } from 'axios';
-import { ApiRoute, AppRoute } from '../const/const';
+import { ApiRoute, AppRoute, FavoriteStatus } from '../const/const';
 import { dropToken, saveToken } from '../services/token';
 import { redirectToRoute } from './action';
 import { setUserData } from './user-process/user-process';
@@ -35,8 +35,9 @@ export const changeFavoriteStatus = createAsyncThunk<DetailedOffer, HandleButton
   extra: AxiosInstance;
 }>('offers/changeFavoriteStatus',
   async ({id, isFavorite}, {dispatch, extra: api}) => {
-    const {data} = await api.post<DetailedOffer>(`${ApiRoute.Favorites}/${id}/${isFavorite ? 1 : 0}`);
+    const {data} = await api.post<DetailedOffer>(`${ApiRoute.Favorites}/${id}/${isFavorite ? FavoriteStatus.AddToFavorite : FavoriteStatus.DeleteFromFavorite}`);
     dispatch(toggleFavoriteStatus({id, isFavorite}));
+    dispatch(fetchFavoritesAction());
     return data;
   }
 );
